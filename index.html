@@ -86,6 +86,16 @@ padding-top: 0rem;
 }
 #searchInput.open {  transform: translateY(0);
 }
+#searchOverlay {  position: fixed;
+  top: 3.2rem; left: 0; right: 0;
+  height: 30vh; background: #f0f4f9;
+  border-bottom: 1px solid #ddd;
+  overflow-y: auto;
+  transform: translateY(-100%);
+transition: top 0.25s ease;
+  z-index: 988;
+}
+#searchOverlay.open {  transform: translateY(0);
 }
 #sideMenu { position: fixed;
   top: 3.2rem; left: 0;
@@ -122,26 +132,6 @@ overflow-y: auto;
 overscroll-behavior: contain;
 }
 #favPanel.open { transform: translateY(0);
-}
-#projectionView { position: fixed;
-  inset: 0;
-  background: #ffffff;
-  display: none;
-  z-index: 1000;
-overflow-y: auto;
-}
-#projectionView  div {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
-white-space: pre-line;
-font-family: Open Sans;
-  font-size: 2.2rem;
-line-height: 1.3; 
-}
-#projectionView.active { display: block;
 }
 .bottom-bar {  position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -190,7 +180,6 @@ box-sizing: border-box;
 </div>
 <ul id="songList"></ul>
 <div id="songDetail"></div>
-<div id="projectionView"></div>
 <script src="./Hiuna_Khomlui.js"></script>
 <script src="./Luisan.js"></script>
 <script src="./Khristen_Madui_Lui.js"></script>
