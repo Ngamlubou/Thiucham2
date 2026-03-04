@@ -35,7 +35,7 @@ function updateFavStar(index) {
   const favs = readFav()[currentDatasetKey] || [];
   star.textContent = favs.includes(index) ? "⭐" : "☆";
 }
-function closeFavouritePanel() { favPanel.style.bottom = "-50vh";
+function closeFavouritePanel() { favPanel.classList.remove("open");
 isFavPanelOpen = false;
 } 
 function openFavouriteView(event) { if (isFavPanelOpen){ closeFavouritePanel(); clearSideMenuActive(); return;
@@ -198,7 +198,7 @@ const li = document.createElement("li");
  fragment.appendChild(li); });
  favList.innerHTML = "";
   favList.appendChild(fragment);
-  favPanel.style.bottom = "0";
+  favPanel.classList.add("open");
 isFavPanelOpen = true;
 }
 /* ======== DATASET ======== */
