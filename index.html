@@ -86,17 +86,16 @@ padding-top: 0rem;
 }
 #searchInput.open {  transform: translateY(0);
 }
-#searchOverlayxyz {  position: fixed;
+#searchOverlay {  position: fixed;
   top: 3.2rem;
 width: 100%;
   height: 50vh; background: #f0f4f9;
   border-bottom: 1px solid #ddd;
   overflow-y: auto;
-  transform: translateY(-100%);
-transition: transform 0.25s ease;
+  display: none;
   z-index: 998;
 }
-#searchOverlayxyz.open {  transform: translateY(0);
+#searchOverlayxyz.open {  display: block ;
 }
 #sideMenu { position: fixed;
   top: 3.2rem; left: 0;
@@ -176,7 +175,7 @@ box-sizing: border-box;
   rel="noopener" > ▸ App Info</a></div>
 <div id="favPanel">
 <div style="text-align: center;"><u>Star ⭐</u></div> <ul id="favList"></ul></div>
-<div id="searchOverlayxyz">
+<div id="searchOverlay">
   <ul id="searchResults"></ul>
 </div>
 <ul id="songList"></ul>
@@ -190,4 +189,4 @@ box-sizing: border-box;
 <div class="bottom-item" onclick="switchDataset('khristen')">Khristen Madui Lui</div>
 <div class="bottom-item" onclick="switchDataset('luisan')">Luisan</div></div>
 </body>
-</html>
+  </html>
