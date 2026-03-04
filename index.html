@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="manifest" href="./manifest.json">
 <style>
-    html { touch-action: manipulation;
+    html {
   font-size: 28px; }
 *, *::before, *::after {
   box-sizing: border-box;
@@ -56,7 +56,7 @@ line-height: 1.3;
   align-items: center;
   border-bottom: 1px solid #ddd;
 box-sizing: border-box;
-  z-index: 999;
+  z-index: 1000;
 }
 .top-left { min-width: 2.4rem;
   padding-left: 0.9rem;
@@ -81,10 +81,8 @@ padding-top: 0rem;
   left: 4.5rem;
   right: 4.5rem;
   height: 2.6rem;  font-size: 1.9rem;
-   transform: translateY(-150%);
+  display: none;
   background-color: #fff;
-}
-#searchInput.open {  transform: translateY(0);
 }
 #searchOverlay {  position: fixed;
   top: 3.2rem;
@@ -93,22 +91,19 @@ width: 100%;
   border-bottom: 1px solid #ddd;
   overflow-y: auto;
   display: none;
-}
-#searchOverlay.open {  display: block ;
+  z-index: 999;
 }
 #sideMenu { position: fixed;
-  top: 3.2rem; left: 0;
-  max-height: 60vh; 
-  display: none;
+  top: 3.2rem;
+  max-height: 80vh; 
+  left: -18rem;
   width: 18rem; 
 background: #f0f4f9;
+transform: translateZ(0);
+  will-change: transform;
   box-shadow: 2px 0 10px rgba(0,0,0,0.2);
   transition: left 0.25s ease;
-overflow-y: auto;
-  z-index: 996;
-}
-#sideMenu.open {
-  display: block;
+  z-index: 998;
 }
 .side-head { padding-top: 0.8rem; padding-left: 1.6rem;
 }
@@ -120,17 +115,13 @@ overflow-y: auto;
   font-weight: 600;
 }
 #favPanel {  position: fixed;
-  left: 0; right: 0; bottom: 0;
-  transform: translateY(-100%);  
- height: 50vh;
+  left: 0; right: 0;
+  bottom: -50vh;  height: 50vh;
   background: #f0f4f9;
   box-shadow: 2px 0 10px rgba(0,0,0,0.2);
   transition: bottom 0.25s ease;
   z-index: 997;
   overflow-y: auto;
-overscroll-behavior: contain;
-}
-#favPanel.open { transform: translateY(0);
 }
 .bottom-bar {  position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -154,11 +145,11 @@ box-sizing: border-box;
 </head>
 <body>
 <div class="top-bar">
- <div class="top-left" id="topLeft" onclick="handleTopLeftClick()"></div>
+ <div class="top-left" role="button" aria-label="Menu" id="topLeft" onclick="handleTopLeftClick()"></div>
 
   <div class="top-name" id="viewName"></div>
 
-  <div class="top-right"  id="top-search" onclick="toggleSearch()">🔍</div>
+  <div class="top-right" role="button" id="top-search" onclick="toggleSearch()">🔍</div>
   <input
     type="text"
     id="searchInput"
@@ -176,9 +167,10 @@ box-sizing: border-box;
 <div style="text-align: center;"><u>Star ⭐</u></div> <ul id="favList"></ul></div>
 <div id="searchOverlay">
   <ul id="searchResults"></ul>
-</div> 
+</div>
 <ul id="songList"></ul>
 <div id="songDetail"></div>
+
 <script src="./Hiuna_Khomlui.js"></script>
 <script src="./Luisan.js"></script>
 <script src="./Khristen_Madui_Lui.js"></script>
@@ -188,4 +180,4 @@ box-sizing: border-box;
 <div class="bottom-item" onclick="switchDataset('khristen')">Khristen Madui Lui</div>
 <div class="bottom-item" onclick="switchDataset('luisan')">Luisan</div></div>
 </body>
-  </html>
+</html>
