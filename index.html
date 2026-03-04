@@ -93,14 +93,13 @@ width: 100%;
   border-bottom: 1px solid #ddd;
   overflow-y: auto;
   display: none;
-  z-index: 998;
 }
-#searchOverlayxyz.open {  display: block ;
+#searchOverlay.open {  display: block ;
 }
 #sideMenu { position: fixed;
   top: 3.2rem; left: 0;
   max-height: 60vh; 
-  transform: translateX(-100%);
+  display: none;
   width: 18rem; 
 background: #f0f4f9;
   box-shadow: 2px 0 10px rgba(0,0,0,0.2);
@@ -109,7 +108,7 @@ overflow-y: auto;
   z-index: 996;
 }
 #sideMenu.open {
-  transform: translateX(0);
+  display: block;
 }
 .side-head { padding-top: 0.8rem; padding-left: 1.6rem;
 }
@@ -155,7 +154,7 @@ box-sizing: border-box;
 </head>
 <body>
 <div class="top-bar">
- <div class="top-left" aria-label="Menu" id="topLeft" onclick="handleTopLeftClick()"></div>
+ <div class="top-left" id="topLeft" onclick="handleTopLeftClick()"></div>
 
   <div class="top-name" id="viewName"></div>
 
@@ -177,7 +176,7 @@ box-sizing: border-box;
 <div style="text-align: center;"><u>Star ⭐</u></div> <ul id="favList"></ul></div>
 <div id="searchOverlay">
   <ul id="searchResults"></ul>
-</div>
+</div> 
 <ul id="songList"></ul>
 <div id="songDetail"></div>
 <script src="./Hiuna_Khomlui.js"></script>
