@@ -29,14 +29,13 @@ const searchListEl = document.getElementById("searchResults");
 const sideMenu = document.getElementById("sideMenu");
 const favPanel = document.getElementById("favPanel");
 const favList  = document.getElementById("favList");
-
 /* ========= VIEW HANDLERS ========= */
 function updateFavStar(index) {
   const star = document.getElementById("favStar");  if (!star) return;
   const favs = readFav()[currentDatasetKey] || [];
   star.textContent = favs.includes(index) ? "⭐" : "☆";
 }
-function closeFavouritePanel() { favPanel.classList.remove("open");
+function closeFavouritePanel() { favPanel.style.bottom = "-50vh";
 isFavPanelOpen = false;
 } 
 function openFavouriteView(event) { if (isFavPanelOpen){ closeFavouritePanel(); clearSideMenuActive(); return;
@@ -63,10 +62,10 @@ function handleTopLeftClick() {
       openSideMenu();
     }  } }
 function openSideMenu() {
-  sideMenu.classList.add("open");
+  sideMenu.style.left = "0px";
 isSideMenuOpen = true; clearSearch(); }
 function closeSideMenu() {
-sideMenu.classList.remove("open");
+  sideMenu.style.left = "-18rem";
 isSideMenuOpen = false;
 }
 function clearSideMenuActive() {
@@ -75,19 +74,18 @@ document.querySelectorAll(".side-item").forEach(i =>
 }
 function clearSearch() {
   searchInput.value = "";
-searchOverlay.classList.remove("open");
+  searchOverlay.style.display = "none";
   searchListEl.innerHTML = "";
 }
 function openSearch() { closeFavouritePanel();
- searchOverlay.classList.add("open");
-  searchInput.classList.add("open");
+ searchOverlay.style.display = "block";
+  searchInput.style.display = "block";
   topSearch.textContent = "⌫";
 isSearchInputOpen = true;
   searchInput.focus();
 }
 function closeSearch() { clearSearch(); 
-searchOverlay.classList.remove("open");
-  searchInput.classList.remove("open");
+  searchInput.style.display = "none";
    topSearch.textContent = "🔍";
   isSearchInputOpen = false;
 }
@@ -121,12 +119,8 @@ detailEl.addEventListener("click", e => {
   const x = e.clientX; const y = e.clientY;
   const w = window.innerWidth; const h = window.innerHeight;   
 if (y < h * 0.15 || y > h * 0.9 ) return;
-if (x < w * 0.26)
-{const newIndex = currentIndex - 1;
-showSongDetail(baseSongs[newIndex], newIndex); }
-  else if (x > w * 0.74) 
-{const newIndex = currentIndex + 1;
-showSongDetail(baseSongs[newIndex], newIndex); }
+if (x < w * 0.26) showSongDetail(currentIndex - 1);
+  else if (x > w * 0.74) showSongDetail(currentIndex + 1);
 });
 function renderSongLine(song, index, favSet) {
   const isFav = favSet?.has(index);
@@ -199,12 +193,12 @@ function openFavouritePanel() {
 const li = document.createElement("li");
     li.innerHTML = renderSongLine(song);
   li.onclick = () => {  switchDataset(dataset);
-      showSongDetail(song, index);
+      showSongDetail(index);
     };
  fragment.appendChild(li); });
  favList.innerHTML = "";
   favList.appendChild(fragment);
-  favPanel.classList.add("open");
+  favPanel.style.bottom = "0";
 isFavPanelOpen = true;
 }
 /* ======== DATASET ======== */
@@ -237,12 +231,8 @@ event.currentTarget?.classList.add("active"); window.scrollTo(0, 0) ;
   activateDataset(datasetKey, "category");
 }
 /* ========= SEARCH ========= */
-function normalize(str) {  return (str || "")
-    .toLowerCase()
-    .replace(/[ !,.?]/g, "");
-}
 searchInput.addEventListener("input", () => {
-  const q = normalize(searchInput.value);
+  const q = searchInput.value.trim().toLowerCase();
 
   if (q === "") {
     clearSearch();
@@ -252,12 +242,11 @@ searchInput.addEventListener("input", () => {
     .map((song, index) => ({ song, index }))
     .filter(({ song }) =>
       song.ID.toString().includes(q) ||
-      normalize(song.Title).includes(q) || 
-       normalize(song.Translation).includes(q)
+      (song.Title || "").toLowerCase().includes(q) ||  (song.Translation || "").toLowerCase().includes(q)
     );
 
   renderSearchResults(matches);
-  searchOverlay.classList.add("open");
+  searchOverlay.style.display = "block";
 });
 function renderSearchResults(results) {
   const fragment = document.createDocumentFragment();
@@ -265,7 +254,7 @@ const favSet = new Set(readFav()[currentDatasetKey] || []);
   results.forEach(({ song, index }) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
     li.onclick = () => { clearSearch();  
-      showSongDetail(song, index);
+      showSongDetail(index);
     };
     fragment.appendChild(li);  });
 searchListEl.innerHTML = "";
@@ -299,7 +288,7 @@ grouped[category].forEach(({ song, index }) => {
       const li = document.createElement("li");
       li.innerHTML = renderSongLine(song, index, favSet);
    li.onclick = () => { lastListScrollY = window.scrollY;
-        showSongDetail(song, index);
+        showSongDetail(index);
       };
 containerFragment.appendChild(li);
     });
@@ -317,12 +306,9 @@ function renderSongList(songArray) { const fragment = document.createDocumentFra
 const favSet = new Set(readFav()[currentDatasetKey] || []);
 songArray.forEach((song, index) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
-    li.addEventListener("click", (e) => {
-  if (e.detail === 2) {
-    projectionMode(song);
-  } else { lastListScrollY = window.scrollY;
-    showSongDetail(song, index);
-  }});
+    li.onclick = () => { lastListScrollY = window.scrollY;
+      showSongDetail(index);
+    };
     fragment.appendChild(li);
   });
  listEl.innerHTML = "";
@@ -342,7 +328,8 @@ function renderLyrics(song, order) {
 }
 const DETAIL_ORDER = [
   ["V1", "CH-"], ["CH", "V1-"], ["V2", "V2-"],["V3", "V3-"],  ["V4", "V4-"], ["V5", "V5-"], ["V6", "V6-"], ["V7", "V7-"],  ["V8", "V8-"], ["V9", "V9-"], ["V10", "V10-"], ["V11", "V11-"] ];
-function showSongDetail(song, index) { 
+function showSongDetail(index) {  
+const song = baseSongs[index]; 
   if (!song) return;
 currentIndex = index;
   const translationBlock = song.Translation
@@ -363,3 +350,4 @@ showDetailView();
 }
 /* ========= BOOT ========= */
 switchDataset("hiuna");
+
