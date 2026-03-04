@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="manifest" href="./manifest.json">
 <style>
-    html {
+    html { touch-action: manipulation;
   font-size: 28px; }
 *, *::before, *::after {
   box-sizing: border-box;
@@ -103,7 +103,7 @@ transform: translateZ(0);
   will-change: transform;
   box-shadow: 2px 0 10px rgba(0,0,0,0.2);
   transition: left 0.25s ease;
-  z-index: 998;
+  z-index: 996;
 }
 .side-head { padding-top: 0.8rem; padding-left: 1.6rem;
 }
@@ -115,14 +115,18 @@ transform: translateZ(0);
   font-weight: 600;
 }
 #favPanel {  position: fixed;
-  left: 0; right: 0;
-  bottom: -50vh;  height: 50vh;
+  left: 0; right: 0;  bottom: 0;  
+height: 50vh;
+transform: translateY(-100%); 
   background: #f0f4f9;
   box-shadow: 2px 0 10px rgba(0,0,0,0.2);
   transition: bottom 0.25s ease;
   z-index: 997;
   overflow-y: auto;
+overscroll-behavior: contain;
 }
+#favPanel.open { transform: translateY(0);
+} 
 .bottom-bar {  position: fixed;
   bottom: 0; left: 0; right: 0;
   width: 100%;
