@@ -74,18 +74,18 @@ document.querySelectorAll(".side-item").forEach(i =>
 }
 function clearSearch() {
   searchInput.value = "";
-  searchOverlay.classList.remove("open");
+  searchOverlay.style.display = "none";
   searchListEl.innerHTML = "";
 }
 function openSearch() { closeFavouritePanel();
- searchOverlay.classList.add("open");
-searchInput.classList.add("open");
+ searchOverlay.style.display = "block";
+searchInput.style.display = "block";
   topSearch.textContent = "⌫";
 isSearchInputOpen = true;
   searchInput.focus();
 }
 function closeSearch() { clearSearch(); 
-  searchInput.classList.remove("open");
+  searchInput.style.display = "none";
    topSearch.textContent = "🔍";
   isSearchInputOpen = false;
 }
@@ -248,7 +248,7 @@ searchInput.addEventListener("input", () => { const q = normalize(searchInput.va
        normalize(song.Translation).includes(q)
     );
   renderSearchResults(matches);
- searchOverlay.classList.add("open");
+ searchOverlay.style.display = "block";
 });
 function renderSearchResults(results) {
   const fragment = document.createDocumentFragment();
