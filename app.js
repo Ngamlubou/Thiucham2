@@ -24,7 +24,7 @@ const viewNameEl = document.getElementById("viewName");
 const topLeftBtn = document.getElementById("topLeft");
 const topSearch = document.getElementById("top-search");
 const searchInput = document.getElementById("searchInput");
-const searchOverlay = document.getElementById("searchOverlay");
+const searchOverlay = document.getElementById("searchOverlayxyz");
 const searchListEl = document.getElementById("searchResults");
 const sideMenu = document.getElementById("sideMenu");
 const favPanel = document.getElementById("favPanel");
@@ -366,4 +366,4 @@ switchDataset("hiuna");
 /* ========= PWA ========= */
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => { navigator.serviceWorker.register("./sw.js"); });
-  }
+}
