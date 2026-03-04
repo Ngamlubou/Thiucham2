@@ -62,10 +62,10 @@ function handleTopLeftClick() {
       openSideMenu();
     }  } }
 function openSideMenu() {
-  sideMenu.style.left = "0px";
+  sideMenu.classList.add("open");
 isSideMenuOpen = true; clearSearch(); }
 function closeSideMenu() {
-  sideMenu.style.left = "-18rem";
+  sideMenu.classList.remove("open");
 isSideMenuOpen = false;
 }
 function clearSideMenuActive() {
@@ -74,18 +74,18 @@ document.querySelectorAll(".side-item").forEach(i =>
 }
 function clearSearch() {
   searchInput.value = "";
-  searchOverlay.style.display = "none";
+  searchOverlay.classList.remove("open");
   searchListEl.innerHTML = "";
 }
 function openSearch() { closeFavouritePanel();
- searchOverlay.style.display = "block";
-  searchInput.style.display = "block";
+ searchOverlay.classList.add("open");
+searchInput.classList.add("open");
   topSearch.textContent = "⌫";
 isSearchInputOpen = true;
   searchInput.focus();
 }
 function closeSearch() { clearSearch(); 
-  searchInput.style.display = "none";
+  searchInput.classList.remove("open");
    topSearch.textContent = "🔍";
   isSearchInputOpen = false;
 }
@@ -248,7 +248,7 @@ searchInput.addEventListener("input", () => { const q = normalize(searchInput.va
        normalize(song.Translation).includes(q)
     );
   renderSearchResults(matches);
-  searchOverlay.style.display = "block";
+ searchOverlay.classList.add("open");
 });
 function renderSearchResults(results) {
   const fragment = document.createDocumentFragment();
