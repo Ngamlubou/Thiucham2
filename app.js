@@ -86,6 +86,7 @@ isSearchInputOpen = true;
   searchInput.focus();
 }
 function closeSearch() { clearSearch(); 
+searchOverlay.classList.remove("open");
   searchInput.classList.remove("open");
    topSearch.textContent = "🔍";
   isSearchInputOpen = false;
@@ -365,4 +366,4 @@ switchDataset("hiuna");
 /* ========= PWA ========= */
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => { navigator.serviceWorker.register("./sw.js"); });
-}
+  }
