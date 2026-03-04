@@ -117,15 +117,15 @@ transform: translateZ(0);
 #favPanel {  position: fixed;
   left: 0; right: 0;  bottom: 0;  
 height: 50vh;
-transform: translateY(-100%); 
+transform: translateX(-100%); 
   background: #f0f4f9;
   box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-  transition: bottom 0.25s ease;
+  transition: left 0.25s ease;
   z-index: 997;
   overflow-y: auto;
 overscroll-behavior: contain;
 }
-#favPanel.open { transform: translateY(0);
+#favPanel.open { transform: translateX(0);
 } 
 .bottom-bar {  position: fixed;
   bottom: 0; left: 0; right: 0;
