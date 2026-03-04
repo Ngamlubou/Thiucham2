@@ -231,20 +231,22 @@ event.currentTarget?.classList.add("active"); window.scrollTo(0, 0) ;
   activateDataset(datasetKey, "category");
 }
 /* ========= SEARCH ========= */
-searchInput.addEventListener("input", () => {
-  const q = searchInput.value.trim().toLowerCase();
+function normalize(str) {  return (str || "")
+    .toLowerCase()
+    .replace(/[ !,.?]/g, "");
+}
+searchInput.addEventListener("input", () => { const q = normalize(searchInput.value);
 
   if (q === "") {
     clearSearch();
        return; }
-
   const matches = baseSongs
     .map((song, index) => ({ song, index }))
     .filter(({ song }) =>
       song.ID.toString().includes(q) ||
-      (song.Title || "").toLowerCase().includes(q) ||  (song.Translation || "").toLowerCase().includes(q)
+      normalize(song.Title).includes(q) || 
+       normalize(song.Translation).includes(q)
     );
-
   renderSearchResults(matches);
   searchOverlay.style.display = "block";
 });
@@ -322,7 +324,7 @@ function renderLyrics(song, order) {
     let key = null;
  if (song[pair[0]]) key = pair[0];
     else if (song[pair[1]]) key = pair[1];
- if (!key) break;
+ if (!key) continue;
  html += `<div>${song[key]}</div>`; }
   return html;
 }
