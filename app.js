@@ -74,11 +74,11 @@ document.querySelectorAll(".side-item").forEach(i =>
 }
 function clearSearch() {
   searchInput.value = "";
-  searchOverlay.style.display = "none";
+  searchOverlay.classList.remove("open");
   searchListEl.innerHTML = "";
 }
 function openSearch() { closeFavouritePanel();
- searchOverlay.style.display = "block";
+searchOverlay.classList.add("open");
 searchInput.style.display = "block";
   topSearch.textContent = "⌫";
 isSearchInputOpen = true;
@@ -248,7 +248,7 @@ searchInput.addEventListener("input", () => { const q = normalize(searchInput.va
        normalize(song.Translation).includes(q)
     );
   renderSearchResults(matches);
- searchOverlay.style.display = "block";
+ searchOverlay.classList.add("open");
 });
 function renderSearchResults(results) {
   const fragment = document.createDocumentFragment();
@@ -353,3 +353,4 @@ showDetailView();
 /* ========= BOOT ========= */
 switchDataset("hiuna");
 
+  
