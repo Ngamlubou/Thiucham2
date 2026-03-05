@@ -79,13 +79,13 @@ function clearSearch() {
 }
 function openSearch() { closeFavouritePanel();
 searchOverlay.classList.add("open");
-searchInput.style.display = "block";
+searchInput.classList.add("open");
   topSearch.textContent = "⌫";
 isSearchInputOpen = true;
   searchInput.focus();
 }
 function closeSearch() { clearSearch(); 
-  searchInput.style.display = "none";
+   searchInput.classList.remove("open");
    topSearch.textContent = "🔍";
   isSearchInputOpen = false;
 }
@@ -353,4 +353,3 @@ showDetailView();
 /* ========= BOOT ========= */
 switchDataset("hiuna");
 
-  
