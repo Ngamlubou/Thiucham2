@@ -151,6 +151,13 @@ box-sizing: border-box;
 .bottom-item:first-child {  border-left: none;} 
 .bottom-item:hover {  background: #ffe7ba;
 }
+#projectionView { position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: none;
+  z-index: 1100;
+overflow-y: auto;
+}
   </style>  
 </head>
 <body>
@@ -189,5 +196,6 @@ box-sizing: border-box;
 <div class="bottom-item" onclick="switchDataset('hiuna')">Hiuna Khomlui</div>
 <div class="bottom-item" onclick="switchDataset('khristen')">Khristen Madui Lui</div>
 <div class="bottom-item" onclick="switchDataset('luisan')">Luisan</div></div>
+<div id="projectionView"></div>
 </body>
 </html>
