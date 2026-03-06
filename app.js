@@ -326,7 +326,7 @@ function renderLyrics(song, order) {
  if (song[pair[0]]) key = pair[0];
     else if (song[pair[1]]) key = pair[1];
  if (!key) continue;
- html += `<div>${song[key]}</div>`; }
+ html += `<div class="lyrics">${song[key]}</div>`; }
   return html;
 }
 const DETAIL_ORDER = [
@@ -347,7 +347,7 @@ const lyricsBlock = renderLyrics(song, DETAIL_ORDER);
     ${translationBlock}
     <p><strong>Key:</strong> ${song.Key || "⚪"}</p>
     <p><strong>Time signature:</strong> ${song["Time signature"] || "⚪"}</p>
-    <div class="lyrics">${lyricsBlock}</div>
+    <div>${lyricsBlock}</div>
   `;
 showDetailView();
 }
@@ -359,8 +359,8 @@ const PROJECTION_ORDER = [
 function closeProjection() { projection.style.display = "none";
 }
 function openProjection() { projection.style.display = "block";
+projection.innerHTML = renderLyrics(song, PROJECTION_ORDER);
 }
 /* ========= BOOT ========= */
 switchDataset("hiuna");
 
-  
