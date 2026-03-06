@@ -55,7 +55,7 @@ updateFavStar(currentIndex);
 function handleTopLeftClick() {
   if (currentView === "detail") {
     clearSearch();
-    openProjection();
+    backToListView();
   } else {
     if (isSideMenuOpen) {
       closeSideMenu();
@@ -194,7 +194,7 @@ function openFavouritePanel() {
 const li = document.createElement("li");
     li.innerHTML = renderSongLine(song);
   li.onclick = () => {  switchDataset(dataset);
-    showSongDetail(index);
+    openProjection(song);
     };
  fragment.appendChild(li); });
  favList.innerHTML = "";
@@ -358,7 +358,7 @@ const PROJECTION_ORDER = [
 ["V4", "CH-"], ["CH", "V4-"],  ["V5", "CH-"], ["CH", "V5-"], ["V6", "CH-"],  ["CH", "V6-"], ["V7",  "CH-"], ["CH",  "V7-"], ["V8",  "CH-"], ["CH",  "V8-"], ["V9",  "CH-"], ["CH",  "V9-"],["V10", "CH-"], ["CH",  "V10-"], ["V11", "CH-"], ["CH",  "V11-"] ];
 function closeProjection() { projection.style.display = "none";
 }
-function openProjection() { projection.style.display = "block";
+function openProjection(song) { projection.style.display = "block";
 projection.innerHTML = renderLyrics(song, PROJECTION_ORDER);
 }
 /* ========= BOOT ========= */
