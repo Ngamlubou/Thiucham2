@@ -55,7 +55,7 @@ updateFavStar(currentIndex);
 function handleTopLeftClick() {
   if (currentView === "detail") {
     clearSearch();
-    backToListView();
+    openProjection();
   } else {
     if (isSideMenuOpen) {
       closeSideMenu();
@@ -310,7 +310,7 @@ const favSet = new Set(readFav()[currentDatasetKey] || []);
 songArray.forEach((song, index) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
     li.onclick = () => { lastListScrollY = window.scrollY;
-      openProjection();
+      showSongDetail(index);
     };
     fragment.appendChild(li);
   });
@@ -357,9 +357,10 @@ const PROJECTION_ORDER = [
  ["CH", "V2-"], ["V3", "CH-"], ["CH", "V3-"],
 ["V4", "CH-"], ["CH", "V4-"],  ["V5", "CH-"], ["CH", "V5-"], ["V6", "CH-"],  ["CH", "V6-"], ["V7",  "CH-"], ["CH",  "V7-"], ["V8",  "CH-"], ["CH",  "V8-"], ["V9",  "CH-"], ["CH",  "V9-"],["V10", "CH-"], ["CH",  "V10-"], ["V11", "CH-"], ["CH",  "V11-"] ];
 function closeProjection() { projection.style.display = "none";
-  }
+}
 function openProjection() { projection.style.display = "block";
 }
 /* ========= BOOT ========= */
 switchDataset("hiuna");
 
+  
