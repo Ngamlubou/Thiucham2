@@ -194,7 +194,7 @@ function openFavouritePanel() {
 const li = document.createElement("li");
     li.innerHTML = renderSongLine(song);
   li.onclick = () => {  switchDataset(dataset);
-      openProjection(song);
+    showSongDetail(index);
     };
  fragment.appendChild(li); });
  favList.innerHTML = "";
@@ -310,7 +310,7 @@ const favSet = new Set(readFav()[currentDatasetKey] || []);
 songArray.forEach((song, index) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
     li.onclick = () => { lastListScrollY = window.scrollY;
-      showSongDetail(index);
+      openProjection(song);
     };
     fragment.appendChild(li);
   });
@@ -361,7 +361,7 @@ function closeProjection() { projection.style.display = "none";
 }
 function openProjection(song) { projection.style.display = "block";
 projection.innerHTML = renderLyrics(song, PROJECTION_ORDER);
-} 
+}
 /* ========= BOOT ========= */
 switchDataset("hiuna");
 
