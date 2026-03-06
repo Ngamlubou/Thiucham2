@@ -319,16 +319,6 @@ songArray.forEach((song, index) => { const li = document.createElement("li");
  showListView();
 }
 /* ========= DETAIL ========= */
-function renderLyrics(song, order) {
-  let html = "";
-  for (const pair of order) {
-    let key = null;
- if (song[pair[0]]) key = pair[0];
-    else if (song[pair[1]]) key = pair[1];
- if (!key) continue;
- html += `<div class="lyrics">${song[key]}</div>`; }
-  return html;
-}
 const DETAIL_ORDER = [
   ["V1", "CH-"], ["CH", "V1-"], ["V2", "V2-"],["V3", "V3-"],  ["V4", "V4-"], ["V5", "V5-"], ["V6", "V6-"], ["V7", "V7-"],  ["V8", "V8-"], ["V9", "V9-"], ["V10", "V10-"], ["V11", "V11-"] ];
 function showSongDetail(index) {  
@@ -338,7 +328,13 @@ currentIndex = index;
   const translationBlock = song.Translation
     ? `<div class="translation">${song.Translation}</div>`
     : "";
-const lyricsBlock = renderLyrics(song, DETAIL_ORDER);
+const paragraph = [];
+for (const [a,b] of DETAIL_ORDER) {
+  const key = song[a] ? a : song[b] ? b : null;
+  if (!key) continue;
+  parts.push(`<div class="lyrics">${song[key]}</div>`);}
+const lyricsBlock = paragraph.join("");
+
  detailEl.innerHTML = `
   <div class="detail-head">
     <div> <span id="favStar" onclick="toggleFav(${index})">☆</span> <span>${song.ID}</span> </div>
@@ -356,10 +352,17 @@ const PROJECTION_ORDER = [
   ["V1", "CH-"],  ["CH", "V1-"],  ["V2", "CH-"],
  ["CH", "V2-"], ["V3", "CH-"], ["CH", "V3-"],
 ["V4", "CH-"], ["CH", "V4-"],  ["V5", "CH-"], ["CH", "V5-"], ["V6", "CH-"],  ["CH", "V6-"], ["V7",  "CH-"], ["CH",  "V7-"], ["V8",  "CH-"], ["CH",  "V8-"], ["V9",  "CH-"], ["CH",  "V9-"],["V10", "CH-"], ["CH",  "V10-"], ["V11", "CH-"], ["CH",  "V11-"] ];
-function closeProjection() { projection.style.display = "none";
-}
 function openProjection(song) { projection.style.display = "block";
-projection.innerHTML = renderLyrics(song, PROJECTION_ORDER);
+projection.innerHTML = 
+const paragraph = [];
+for (const [a,b] of PROJECTION_ORDER) {
+  const key = song[a] ? a : song[b] ? b : null;
+ if (!key && a !== "CH" && b !== "CH-") break;
+ if (!key) continue;
+  parts.push(`<div class="lyrics">${song[key]}</div>`);}
+projection.innerHTML = paragraph.join("");
+}
+function closeProjection() { projection.style.display = "none";
 }
 /* ========= BOOT ========= */
 switchDataset("hiuna");
