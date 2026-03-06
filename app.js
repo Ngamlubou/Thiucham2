@@ -332,7 +332,7 @@ const paragraph = [];
 for (const [a,b] of DETAIL_ORDER) {
   const key = song[a] ? a : song[b] ? b : null;
   if (!key) continue;
-  parts.push(`<div class="lyrics">${song[key]}</div>`);}
+  paragraph.push(`<div class="lyrics">${song[key]}</div>`);}
 const lyricsBlock = paragraph.join("");
 
  detailEl.innerHTML = `
@@ -352,18 +352,16 @@ const PROJECTION_ORDER = [
   ["V1", "CH-"],  ["CH", "V1-"],  ["V2", "CH-"],
  ["CH", "V2-"], ["V3", "CH-"], ["CH", "V3-"],
 ["V4", "CH-"], ["CH", "V4-"],  ["V5", "CH-"], ["CH", "V5-"], ["V6", "CH-"],  ["CH", "V6-"], ["V7",  "CH-"], ["CH",  "V7-"], ["V8",  "CH-"], ["CH",  "V8-"], ["V9",  "CH-"], ["CH",  "V9-"],["V10", "CH-"], ["CH",  "V10-"], ["V11", "CH-"], ["CH",  "V11-"] ];
-function openProjection(song) { projection.style.display = "block";
-projection.innerHTML = 
+function openProjection(song) { projection.style.display = "block"; 
 const paragraph = [];
 for (const [a,b] of PROJECTION_ORDER) {
   const key = song[a] ? a : song[b] ? b : null;
  if (!key && a !== "CH" && b !== "CH-") break;
  if (!key) continue;
-  parts.push(`<div class="lyrics">${song[key]}</div>`);}
+  paragraph.push(`<div class="lyrics">${song[key]}</div>`);}
 projection.innerHTML = paragraph.join("");
 }
 function closeProjection() { projection.style.display = "none";
 }
 /* ========= BOOT ========= */
 switchDataset("hiuna");
-
