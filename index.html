@@ -156,14 +156,13 @@ box-sizing: border-box;
   background: #ffffff;
   display: none;
   z-index: 1100;
-overflow-y: auto;
+overflow-y: auto; overscroll-behavior: contain;
 }
 #projectionView .lyrics {  min-height: 100vh;
-  display: flex;
-  align-items: center;
-justify-content: center; 
-  padding-left: 0.7rem;
-  padding-right: 0.7rem;
+  overflow-y: auto;
+  align-items: center; 
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
   </style>  
 </head>
