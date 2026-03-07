@@ -120,8 +120,12 @@ detailEl.addEventListener("click", e => {
   const x = e.clientX; const y = e.clientY;
   const w = window.innerWidth; const h = window.innerHeight;   
 if (y < h * 0.15 || y > h * 0.9 ) return;
-if (x < w * 0.26) showSongDetail(currentIndex - 1);
-  else if (x > w * 0.74) showSongDetail(currentIndex + 1);
+if (x < w * 0.26)
+{const newIndex = currentIndex - 1;
+showSongDetail(baseSongs[newIndex], newIndex); }
+  else if (x > w * 0.74) 
+{const newIndex = currentIndex + 1;
+showSongDetail(baseSongs[newIndex], newIndex); }
 });
 function renderSongLine(song, index, favSet) {
   const isFav = favSet?.has(index);
@@ -257,7 +261,7 @@ const favSet = new Set(readFav()[currentDatasetKey] || []);
   results.forEach(({ song, index }) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
     li.onclick = () => { clearSearch();  
-      showSongDetail(index);
+      showSongDetail(song, index);
     };
     fragment.appendChild(li);  });
 searchListEl.innerHTML = "";
@@ -291,7 +295,7 @@ grouped[category].forEach(({ song, index }) => {
       const li = document.createElement("li");
       li.innerHTML = renderSongLine(song, index, favSet);
    li.onclick = () => { lastListScrollY = window.scrollY;
-        showSongDetail(index);
+        showSongDetail(song, index);
       };
 containerFragment.appendChild(li);
     });
@@ -310,7 +314,7 @@ const favSet = new Set(readFav()[currentDatasetKey] || []);
 songArray.forEach((song, index) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
     li.onclick = () => { lastListScrollY = window.scrollY;
-      showSongDetail(index);
+      showSongDetail(song, index);
     };
     fragment.appendChild(li);
   });
@@ -321,8 +325,7 @@ songArray.forEach((song, index) => { const li = document.createElement("li");
 /* ========= DETAIL ========= */
 const DETAIL_ORDER = [
   ["V1", "CH-"], ["CH", "V1-"], ["V2", "V2-"],["V3", "V3-"],  ["V4", "V4-"], ["V5", "V5-"], ["V6", "V6-"], ["V7", "V7-"],  ["V8", "V8-"], ["V9", "V9-"], ["V10", "V10-"], ["V11", "V11-"] ];
-function showSongDetail(index) {  
-const song = baseSongs[index]; 
+function showSongDetail(song, index) {  
   if (!song) return;
 currentIndex = index;
   const translationBlock = song.Translation
@@ -354,14 +357,20 @@ const PROJECTION_ORDER = [
 ["V4", "CH-"], ["CH", "V4-"],  ["V5", "CH-"], ["CH", "V5-"], ["V6", "CH-"],  ["CH", "V6-"], ["V7",  "CH-"], ["CH",  "V7-"], ["V8",  "CH-"], ["CH",  "V8-"], ["V9",  "CH-"], ["CH",  "V9-"],["V10", "CH-"], ["CH",  "V10-"], ["V11", "CH-"], ["CH",  "V11-"] ];
 function openProjection(song) { projection.style.display = "block"; 
 const paragraph = [];
+let missedOnce = false;
 for (const [a,b] of PROJECTION_ORDER) {
   const key = song[a] ? a : song[b] ? b : null;
- if (!key && a !== "CH" && b !== "CH-") break;
- if (!key) continue;
-  paragraph.push(`<div class="lyrics">${song[key]}</div>`);}
+ if (!key) {  if (missedOnce) break;   
+    missedOnce = true;       
+    continue;  }
+missedOnce = false;        
+  paragraph.push(`<div class="lyrics">${song[key]}</div>`);
+}
 projection.innerHTML = paragraph.join("");
 }
 function closeProjection() { projection.style.display = "none";
 }
 /* ========= BOOT ========= */
 switchDataset("hiuna");
+
+  
