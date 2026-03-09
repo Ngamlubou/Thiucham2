@@ -376,21 +376,23 @@ projection.innerHTML = paragraph[cSlide];
 function closeProjection() { projection.style.display = "none";
 }
 projection.addEventListener("click", e => {
- const { clientX: x, clientY: y } = e;
+  const { clientX:x, clientY:y } = e;
   const w = window.innerWidth;
   const h = window.innerHeight;
-  if (y < h * 0.15 || x > w * 0.74) nextSlide();
-  else if (y > h * 0.85 || x < w * 0.26) prevSlide();
+  if (y < h * 0.15 || x < w * 0.26) prevSlide();
+  else if (y > h * 0.85 || x > w * 0.74) nextSlide();
 });
 document.addEventListener("keydown", e => {
-if (e.key === "ArrowUp" || e.key === "ArrowRight") {
-    nextSlide(); }
-  else if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
-    prevSlide();  }
+  if (e.key === "ArrowDown" || e.key === "ArrowRight") nextSlide();
+  else if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevSlide();
 });
-function nextSlide() { projection.innerHTML = paragraph[++cSlide];
+function nextSlide() { 
+if (cSlide === paragraph.length - 1) return; projection.innerHTML = paragraph[++cSlide];
 }
-function prevSlide() { projection.innerHTML = paragraph[--cSlide];
+function prevSlide() {
+  if (cSlide === 0) { closeProjection();
+    return; }
+  projection.innerHTML = paragraph[--cSlide];
 }
 /* ========= BOOT ========= */
 switchDataset("hiuna");
