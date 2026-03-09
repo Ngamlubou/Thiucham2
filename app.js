@@ -12,6 +12,8 @@ let isSideMenuOpen = false;
 let isSearchInputOpen = false;
 let isrestoreScroll = false;
 let isListDirty = false;
+const paragraph = [];
+let cSlide = 0;
 const DATASETS = {
   hiuna: Hiuna_Khomlui,
   khristen: Khristen_Madui_Lui,
@@ -357,7 +359,8 @@ const PROJECTION_ORDER = [
 ["V4", "CH-"], ["CH", "V4-"],  ["V5", "CH-"], ["CH", "V5-"], ["V6", "CH-"],  ["CH", "V6-"], ["V7",  "CH-"], ["CH",  "V7-"], ["V8",  "CH-"], ["CH",  "V8-"], ["V9",  "CH-"], ["CH",  "V9-"],["V10", "CH-"], ["CH",  "V10-"], ["V11", "CH-"], ["CH",  "V11-"] ];
 function openProjection(song) { projection.style.display = "block"; 
 let useA = null;
-const paragraph = [];
+paragraph.length = 0;
+cSlide = 0;
 for (const [a, b] of PROJECTION_ORDER) {
   if (useA === null) { if (song[a]) useA = true;
     else if (song[b]) useA = false;  
@@ -368,11 +371,27 @@ else continue; }
   break;}
  paragraph.push(`<div class="lyrics">${song[key]}</div>`);
 } 
-projection.innerHTML = paragraph.join("");
+projection.innerHTML = paragraph[cSlide];
 }
 function closeProjection() { projection.style.display = "none";
+}
+projection.addEventListener("click", e => {
+ const { clientX: x, clientY: y } = e;
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  if (y < h * 0.15 || x > w * 0.74) nextSlide();
+  else if (y > h * 0.85 || x < w * 0.26) prevSlide();
+});
+document.addEventListener("keydown", e => {
+if (e.key === "ArrowUp" || e.key === "ArrowRight") {
+    nextSlide(); }
+  else if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
+    prevSlide();  }
+});
+function nextSlide() { projection.innerHTML = paragraph[++cSlide];
+}
+function prevSlide() { projection.innerHTML = paragraph[--cSlide];
 }
 /* ========= BOOT ========= */
 switchDataset("hiuna");
 
-      
