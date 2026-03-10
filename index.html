@@ -161,11 +161,12 @@ overflow-y: auto;
   padding-left: 0.85rem;
   padding-right: 0.85rem;
 }
-.pClose { position: absolute;
+.pClose { position: fixed ;
   right: 0;
 top: 50%;
   transform: translateX(-100%);
   color: #b22222;
+z-index: 1101;
   cursor: pointer;
 }
 .pClose.open { transform: translateX(0);} 
@@ -198,9 +199,8 @@ top: 50%;
 </div>
 <ul id="songList"></ul>
 <div id="songDetail"></div>
-<div id="projectionView"> 
+<div id="projectionView"></div>
 <div class="pClose" onclick="closeProjection()">Close</div>
-</div>
 <script src="./Hiuna_Khomlui.js"></script>
 <script src="./Luisan.js"></script>
 <script src="./Khristen_Madui_Lui.js"></script>
