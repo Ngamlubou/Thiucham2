@@ -32,7 +32,6 @@ const sideMenu = document.getElementById("sideMenu");
 const favPanel = document.getElementById("favPanel");
 const favList  = document.getElementById("favList");
 const projection  = document.getElementById("projectionView");
-const pClose = document.querySelector(".pClose");
 /* ========= VIEW HANDLERS ========= */
 function updateFavStar(index) {
   const star = document.getElementById("favStar");  if (!star) return;
@@ -371,11 +370,12 @@ else continue; }
   if (key.startsWith("CH")) continue;
   break;}
  paragraph.push(`<div class="lyrics">${song[key]}</div>`);
+paragraph[paragraph.length - 1] +=
+  `<div onclick="closeProjection()">❌</div>`;
 } 
 projection.innerHTML = paragraph[cSlide];
 }
 function closeProjection() { projection.style.display = "none";
-pClose.classList.remove("open");
 }
 projection.addEventListener("click", e => {
   if (e.clientX < window.innerWidth * 0.26) prevSlide();
@@ -386,8 +386,8 @@ document.addEventListener("keydown", e => {
   else if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevSlide();
 });
 function nextSlide() { 
-if (cSlide === paragraph.length - 1) { 
-pClose.classList.toggle("open"); return; } projection.innerHTML = paragraph[++cSlide];
+if (cSlide === paragraph.length - 1)  return;  
+projection.innerHTML = paragraph[++cSlide];
 }
 function prevSlide() {
   if (cSlide === 0) { closeProjection(); return; }
