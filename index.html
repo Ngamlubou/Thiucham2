@@ -42,7 +42,7 @@ font-size: 1.08rem;
 opacity: 0.9;
 }
 .lyrics {white-space: pre-line;
-  margin-top: 0.65rem;
+  margin-top: 0.7rem;
 font-family: Open Sans;
   font-size: 2.2rem;
 line-height: 1.3; 
@@ -124,7 +124,6 @@ height: 50vh;
 transform: translateX(-100%); 
   background: #f0f4f9;
   box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-  transition: left 0.25s ease;
   z-index: 997;
   overflow-y: auto;
 overscroll-behavior: contain;
@@ -162,15 +161,23 @@ overflow-y: auto;
   padding-left: 0.85rem;
   padding-right: 0.85rem;
 }
+.pClose { position: absolute;
+  right: 0;
+top: 50%;
+  transform: translateX(-100%);
+  color: #b22222;
+  cursor: pointer;
+}
+.pClose.open { transform: translateX(0);} 
   </style>  
 </head>
 <body>
 <div class="top-bar">
- <div class="top-left" role="button" aria-label="Menu" id="topLeft" onclick="handleTopLeftClick()"></div>
+ <div class="top-left"  id="topLeft" onclick="handleTopLeftClick()"></div>
 
   <div class="top-name" id="viewName"></div>
 
-  <div class="top-right" role="button" id="top-search" onclick="toggleSearch()">🔍</div>
+  <div class="top-right"  id="top-search" onclick="toggleSearch()">🔍</div>
   <input
     type="text"
     id="searchInput"
@@ -191,7 +198,9 @@ overflow-y: auto;
 </div>
 <ul id="songList"></ul>
 <div id="songDetail"></div>
-<div id="projectionView">Welcome to slides</div>
+<div id="projectionView"> 
+<div class="pClose" onclick="closeProjection()">Close</div>
+</div>
 <script src="./Hiuna_Khomlui.js"></script>
 <script src="./Luisan.js"></script>
 <script src="./Khristen_Madui_Lui.js"></script>
