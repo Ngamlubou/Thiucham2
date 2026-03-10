@@ -32,6 +32,7 @@ const sideMenu = document.getElementById("sideMenu");
 const favPanel = document.getElementById("favPanel");
 const favList  = document.getElementById("favList");
 const projection  = document.getElementById("projectionView");
+const pClose = document.querySelector(".pClose");
 /* ========= VIEW HANDLERS ========= */
 function updateFavStar(index) {
   const star = document.getElementById("favStar");  if (!star) return;
@@ -374,24 +375,22 @@ else continue; }
 projection.innerHTML = paragraph[cSlide];
 }
 function closeProjection() { projection.style.display = "none";
+pClose.classList.remove("open");
 }
 projection.addEventListener("click", e => {
-  const { clientX:x, clientY:y } = e;
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  if (y < h * 0.15 || x < w * 0.26) prevSlide();
-  else if (y > h * 0.85 || x > w * 0.74) nextSlide();
+  if (e.clientX < window.innerWidth * 0.26) prevSlide();
+  else if (e.clientX > window.innerWidth * 0.74) nextSlide();
 });
 document.addEventListener("keydown", e => {
-  if (e.key === "ArrowDown" || e.key === "ArrowRight") nextSlide();
+  if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === " ") nextSlide();
   else if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevSlide();
 });
 function nextSlide() { 
-if (cSlide === paragraph.length - 1) return; projection.innerHTML = paragraph[++cSlide];
+if (cSlide === paragraph.length - 1) { 
+pClose.classList.toggle("open"); return; } projection.innerHTML = paragraph[++cSlide];
 }
 function prevSlide() {
-  if (cSlide === 0) { closeProjection();
-    return; }
+  if (cSlide === 0) { closeProjection(); return; }
   projection.innerHTML = paragraph[--cSlide];
 }
 /* ========= BOOT ========= */
