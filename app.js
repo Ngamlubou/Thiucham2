@@ -370,9 +370,9 @@ else continue; }
   if (key.startsWith("CH")) continue;
   break;}
  paragraph.push(`<div class="lyrics">${song[key]}</div>`);
-paragraph[paragraph.length - 1] +=
-  `<div onclick="closeProjection()">❌</div>`;
 } 
+paragraph[paragraph.length - 1] +=
+  `<div class="pCloseSlide" onclick="closeProjection()">❌</div>`;
 projection.innerHTML = paragraph[cSlide];
 }
 function closeProjection() { projection.style.display = "none";
@@ -396,3 +396,4 @@ function prevSlide() {
 /* ========= BOOT ========= */
 switchDataset("hiuna");
 
+      
