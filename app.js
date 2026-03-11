@@ -331,7 +331,7 @@ function showSongDetail(song, index) {
   if (!song) return;
 currentIndex = index;
   const translationBlock = song.Translation
-    ? `<p class="translation">${song.Translation}</p>`
+    ? `<div class="translation">${song.Translation}</div>`
     : "";
 const paragraph = [];
 for (const [a,b] of DETAIL_ORDER) {
