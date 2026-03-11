@@ -202,7 +202,7 @@ function openFavouritePanel() {
 const li = document.createElement("li");
     li.innerHTML = renderSongLine(song);
   li.onclick = () => {  switchDataset(dataset);
-    openProjection(song);
+    showSongDetail(index);
     };
  fragment.appendChild(li); });
  favList.innerHTML = "";
@@ -317,12 +317,9 @@ function renderSongList(songArray) { const fragment = document.createDocumentFra
 const favSet = new Set(readFav()[currentDatasetKey] || []);
 songArray.forEach((song, index) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
-    li.addEventListener("click", (e) => {
-  if (e.detail === 2) {
-    projectionMode(song);
-  } else { lastListScrollY = window.scrollY;
-    showSongDetail(song, index);
-  }});
+    li.onclick = () => { lastListScrollY = window.scrollY;
+      showSongDetail(index);
+    };
     fragment.appendChild(li);
   });
  listEl.innerHTML = "";
@@ -388,7 +385,9 @@ projection.addEventListener("click", e => {
 });
 document.addEventListener("keydown", e => {
   if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === " ") nextSlide();
-  else if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevSlide();
+ else if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevSlide();
+else if (e.key === "Escape")
+    closeProjection();
 });
 function nextSlide() { 
 if (cSlide === paragraph.length - 1) { projection.scrollBy(0, 500); return; } 
