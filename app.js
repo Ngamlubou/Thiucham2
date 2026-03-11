@@ -386,7 +386,7 @@ document.addEventListener("keydown", e => {
   else if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevSlide();
 });
 function nextSlide() { 
-if (cSlide === paragraph.length - 1)  return;  
+if (cSlide === paragraph.length - 1) { projection.scrollBy(0, 90); return; } 
 projection.innerHTML = paragraph[++cSlide];
 }
 function prevSlide() {
@@ -396,4 +396,3 @@ function prevSlide() {
 /* ========= BOOT ========= */
 switchDataset("hiuna");
 
-      
