@@ -202,7 +202,7 @@ function openFavouritePanel() {
 const li = document.createElement("li");
     li.innerHTML = renderSongLine(song);
   li.onclick = () => {  switchDataset(dataset);
-    showSongDetail(index);
+    showSongDetail(song, index);
     };
  fragment.appendChild(li); });
  favList.innerHTML = "";
@@ -318,7 +318,7 @@ const favSet = new Set(readFav()[currentDatasetKey] || []);
 songArray.forEach((song, index) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
     li.onclick = () => { lastListScrollY = window.scrollY;
-      showSongDetail(index);
+      showSongDetail(song, index);
     };
     fragment.appendChild(li);
   });
