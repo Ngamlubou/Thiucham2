@@ -38,7 +38,6 @@ body {
 .translation { font-style: italic;
  padding-top: 0.25rem;
  text-align: center;
-font-size: 1.08rem; 
 opacity: 0.9;
 }
 .lyrics {white-space: pre-line;
@@ -60,18 +59,18 @@ box-sizing: border-box;
 .top-left { min-width: 2.4rem;
   padding-left: 0.9rem;
 padding-top: 0rem;
-  font-size: 2rem;
+  font-size: 2.2rem;
   cursor: pointer; 
 }
 .top-right { min-width: 2.4rem;
   padding: 0 0.9rem;
-  font-size: 2rem;
+  font-size: 2.2rem;
   cursor: pointer;
 }
 .top-name { flex: 1;
   text-align: center;
   font-weight: 450;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -155,7 +154,7 @@ box-sizing: border-box;
   z-index: 1100;
 overflow-y: auto;
 }
-#projectionView .lyrics {
+#projectionView .lyrics { min-height: 100dvh;
  display: flex;
   align-items: center; 
   padding-left: 0.85rem;
