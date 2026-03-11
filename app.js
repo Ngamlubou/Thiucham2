@@ -331,7 +331,7 @@ function showSongDetail(song, index) {
   if (!song) return;
 currentIndex = index;
   const translationBlock = song.Translation
-    ? `<div class="translation">${song.Translation}</div>`
+    ? `<p class="translation">${song.Translation}</p>`
     : "";
 const paragraph = [];
 for (const [a,b] of DETAIL_ORDER) {
@@ -346,8 +346,8 @@ const lyricsBlock = paragraph.join("");
   <div>${song.Title}</div>
   </div>
     ${translationBlock}
-    <p><strong>Key:</strong> ${song.Key || "⚪"}</p>
-    <p><strong>Time signature:</strong> ${song["Time signature"] || "⚪"}</p>
+    <p class="song-meta"><strong>Key:</strong> ${song.Key || "⚪"}</p>
+    <p class="song-meta"><strong>Time signature:</strong> ${song["Time signature"] || "⚪"}</p>
     <div>${lyricsBlock}</div>
   `;
 showDetailView();
@@ -386,7 +386,7 @@ document.addEventListener("keydown", e => {
   else if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevSlide();
 });
 function nextSlide() { 
-if (cSlide === paragraph.length - 1) { projection.scrollBy(0, 90); return; } 
+if (cSlide === paragraph.length - 1) { projection.scrollBy(0, 500); return; } 
 projection.innerHTML = paragraph[++cSlide];
 }
 function prevSlide() {
