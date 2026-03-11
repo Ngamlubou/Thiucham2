@@ -129,6 +129,8 @@ showSongDetail(baseSongs[newIndex], newIndex); }
 {const newIndex = currentIndex + 1;
 showSongDetail(baseSongs[newIndex], newIndex); }
 });
+detailEl.addEventListener("dblclick", e => { openProjection(baseSongs[currentIndex]);
+});
 function renderSongLine(song, index, favSet) {
   const isFav = favSet?.has(index);
  const star = isFav
@@ -315,9 +317,12 @@ function renderSongList(songArray) { const fragment = document.createDocumentFra
 const favSet = new Set(readFav()[currentDatasetKey] || []);
 songArray.forEach((song, index) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
-    li.onclick = () => { lastListScrollY = window.scrollY;
-      showSongDetail(song, index);
-    };
+    li.addEventListener("click", (e) => {
+  if (e.detail === 2) {
+    projectionMode(song);
+  } else { lastListScrollY = window.scrollY;
+    showSongDetail(song, index);
+  }});
     fragment.appendChild(li);
   });
  listEl.innerHTML = "";
