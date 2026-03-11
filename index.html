@@ -14,20 +14,19 @@ user-select: none;
 }
 body {
   font-family: Arial;
-  font-size: 1.3rem;   
+  font-size: 2.2rem;   
   line-height: 1.15; 
  padding: 3.5rem 0.75rem 12rem 0.75rem;
 }
  ul {   list-style: none;
       padding: 0px;
-      margin: 0px; }
-
-    li {  padding: 0.65rem 0.7rem 0.65rem 0.7rem; 
+      margin: 0px;
+ }
+  li {  padding: 0.65rem 0.7rem 0.65rem 0.7rem; 
   font-size: 1.3rem;
-   border-bottom: 1px solid #ddd;
-    }
-  li:hover {  opacity: 0.8; }
-
+   border-bottom: 1px solid #ddd;  }
+  li:hover {   background: #d1d2db 
+}
 .detail-head {text-align: center;
  font-size: 2.08rem;
   font-weight: 700;
@@ -36,14 +35,15 @@ body {
   margin-right: 0.4rem;
 }
 .translation { font-style: italic;
- padding-top: 0.25rem;
  text-align: center;
 opacity: 0.9;
+}
+.song-meta {
+  font-size: 1.3rem;
 }
 .lyrics {white-space: pre-line;
   margin-top: 0.8rem;
 font-family: Open Sans;
-  font-size: 2.2rem;
 line-height: 1.3; 
 }
 .top-bar { position: fixed;
@@ -58,14 +58,12 @@ box-sizing: border-box;
 }
 .top-left { min-width: 2.4rem;
   padding-left: 0.9rem;
-padding-top: 0rem;
-  font-size: 2.2rem;}
-.top-left:hover {  opacity: 0.8; 
+padding-top: 0rem; }
+.top-left:hover {  background: #ffe7ba; 
 } 
 .top-right { min-width: 2.4rem;
-  padding: 0 0.9rem;
-  font-size: 2.2rem;}
-.top-right:hover {  opacity: 0.8; 
+  padding: 0 0.9rem; }
+.top-right:hover {  background: #ffe7ba; 
 } 
 .top-name { flex: 1;
   text-align: center;
@@ -78,7 +76,7 @@ padding-top: 0rem;
   position: absolute;
   left: 4.5rem;
   right: 4.5rem;
-  height: 2.6rem;  font-size: 1.9rem;
+  height: 2.6rem;  font-size: 1.8rem;
  transform: translateY(-150%);
   background-color: #fff;
 }
@@ -108,12 +106,12 @@ overflow-y: auto;
 }
 #sideMenu.open { transform: translateX(0);
 }
-.side-head { padding-top: 0.8rem; padding-left: 1.6rem;
+.side-head { font-size: 1.3rem;
+ padding-left: 1.6rem;
 }
 .side-item { padding: 1rem 0rem 1rem 0.75rem;
   font-size: 1.7rem;
- border-bottom: 1px solid #ddd;
-  cursor: pointer;}
+ border-bottom: 1px solid #ddd; }
 .side-item.active { background: #ffe7ba;
   font-weight: 600;
 }
@@ -142,7 +140,6 @@ box-sizing: border-box;
   text-align: center;
   height: 4rem;
   line-height: 4rem;
-   cursor: pointer; 
   font-size: 1.3rem; border-left: 0.8px solid #000;}
 .bottom-item:first-child {  border-left: none;} 
 .bottom-item:hover {  background: #ffe7ba;
@@ -161,7 +158,6 @@ overflow-y: auto;
   padding-right: 0.85rem;
 }
 .pCloseSlide{ text-align: center;
-  font-size: 2.2rem;
   cursor: pointer;
 }
   </style>  
@@ -180,7 +176,7 @@ overflow-y: auto;
 </div>
 
 <div id="sideMenu">
-<div class="side-head"> Category </div>
+<p class="side-head"> Category </p>
 <div class="side-item" onclick="openCategoryView('luisan', event)"> ▸ Luisan</div>
 <div class="side-item" onclick="openCategoryView('khristen', event)"> ▸ Khristen Madui Lui</div>
 <div class="side-item" onclick="openFavouriteView(event)"> ▸ Star ⭐</div><br>
