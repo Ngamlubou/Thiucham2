@@ -35,7 +35,9 @@ body {
   margin-right: 0.4rem;
 }
 .translation { font-style: italic;
+ padding-top: 0.25rem;
  text-align: center;
+font-size: 1.08rem; 
 opacity: 0.9;
 }
 .song-meta {
@@ -58,13 +60,13 @@ box-sizing: border-box;
 }
 .top-left { min-width: 2.4rem;
   padding-left: 0.9rem;
-padding-top: 0rem; }
-.top-left:hover {  background: #ffe7ba; 
-} 
+padding-top: 0rem; 
+cursor: pointer; 
+}
 .top-right { min-width: 2.4rem;
-  padding: 0 0.9rem; }
-.top-right:hover {  background: #ffe7ba; 
-} 
+  padding: 0 0.9rem; 
+cursor: pointer; 
+}
 .top-name { flex: 1;
   text-align: center;
   font-weight: 450;
@@ -106,7 +108,8 @@ overflow-y: auto;
 }
 #sideMenu.open { transform: translateX(0);
 }
-.side-head { font-size: 1.3rem;
+.side-head { padding-top: 0.8rem;
+font-size: 1.3rem;
  padding-left: 1.6rem;
 }
 .side-item { padding: 1rem 0rem 1rem 0.75rem;
@@ -176,7 +179,7 @@ overflow-y: auto;
 </div>
 
 <div id="sideMenu">
-<p class="side-head"> Category </p>
+<div class="side-head"> Category </div>
 <div class="side-item" onclick="openCategoryView('luisan', event)"> ▸ Luisan</div>
 <div class="side-item" onclick="openCategoryView('khristen', event)"> ▸ Khristen Madui Lui</div>
 <div class="side-item" onclick="openFavouriteView(event)"> ▸ Star ⭐</div><br>
