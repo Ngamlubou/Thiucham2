@@ -8,7 +8,6 @@ let currentIndex = -1;
 let favCache = null;
 let isfavOutdated = true;
 let isFavPanelOpen = false;
-let isSideMenuOpen = false;
 let isSearchInputOpen = false;
 let isrestoreScroll = false;
 let isListDirty = false;
@@ -58,19 +57,9 @@ function handleTopLeftClick() {
   if (currentView === "detail") {
     clearSearch();
     backToListView();
-  } else {
-    if (isSideMenuOpen) {
-      closeSideMenu();
-    } else {
-      openSideMenu();
-    }  } }
-function openSideMenu() {
-  sideMenu.classList.add("open");
-isSideMenuOpen = true; clearSearch(); }
-function closeSideMenu() {
-  sideMenu.classList.remove("open");
-isSideMenuOpen = false;
-}
+  } else { sideMenu.classList.toggle("open");
+    clearSearch();  }
+ }
 function clearSideMenuActive() {
 document.querySelectorAll(".side-item").forEach(i =>
     i.classList.remove("active") );
@@ -114,7 +103,7 @@ function showDetailView() {
   listEl.style.display = "none";
   detailEl.style.display = "block";
   updateTopLeftButton();
- closeSideMenu();
+ sideMenu.classList.remove("open");
 closeFavouritePanel();
 window.scrollTo(0, 0) ;
 }
@@ -212,7 +201,7 @@ isFavPanelOpen = true;
 }
 /* ======== DATASET ======== */
 function activateDataset(key, view = "list") {
-  closeSideMenu();
+  sideMenu.classList.remove("open");
   clearSearch(); 
   currentDatasetKey = key;
   baseSongs = DATASETS[key];
@@ -335,12 +324,12 @@ currentIndex = index;
   const translationBlock = song.Translation
     ? `<div class="translation">${song.Translation}</div>`
     : "";
-const paragraph = [];
+const lyricsParts = [];
 for (const [a,b] of DETAIL_ORDER) {
   const key = song[a] ? a : song[b] ? b : null;
   if (!key) continue;
-  paragraph.push(`<div class="lyrics">${song[key]}</div>`);}
-const lyricsBlock = paragraph.join("");
+  lyricsParts.push(`<div class="lyrics">${song[key]}</div>`);}
+const lyricsBlock = lyricsParts.join("");
 
  detailEl.innerHTML = `
   <div class="detail-head">
