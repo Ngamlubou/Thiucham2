@@ -53,12 +53,10 @@ updateFavStar(currentIndex);
   } else {
     topLeftBtn.textContent = "☰";
   }}
-function handleTopLeftClick() {
+function handleTopLeftClick() { clearSearch(); 
   if (currentView === "detail") {
-    clearSearch();
-    backToListView();
-  } else { sideMenu.classList.toggle("open");
-    clearSearch();  }
+    backToListView(); } 
+else { sideMenu.classList.toggle("open"); }
  }
 function clearSideMenuActive() {
 document.querySelectorAll(".side-item").forEach(i =>
@@ -349,6 +347,8 @@ const PROJECTION_ORDER = [
  ["CH", "V2-"], ["V3", "CH-"], ["CH", "V3-"],
 ["V4", "CH-"], ["CH", "V4-"],  ["V5", "CH-"], ["CH", "V5-"], ["V6", "CH-"],  ["CH", "V6-"], ["V7",  "CH-"], ["CH",  "V7-"], ["V8",  "CH-"], ["CH",  "V8-"], ["V9",  "CH-"], ["CH",  "V9-"],["V10", "CH-"], ["CH",  "V10-"], ["V11", "CH-"], ["CH",  "V11-"] ];
 function openProjection(song) { projection.style.display = "block"; 
+history.pushState({ view: "projection" }, "");
+
 let useA = null;
 paragraph.length = 0;
 cSlide = 0;
@@ -389,3 +389,7 @@ function prevSlide() {
 /* ========= BOOT ========= */
 switchDataset("hiuna");
 
+window.addEventListener("popstate", (e) => {
+  if (e.state?.view === "projection") 
+    closeProjection();
+});
