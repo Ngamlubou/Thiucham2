@@ -38,9 +38,10 @@ function updateFavStar(index) {
   star.textContent = favs.includes(index) ? "⭐" : "☆";
 }
 function closeFavouritePanel() { favPanel.classList.remove("open");
+clearSideMenuActive();
 isFavPanelOpen = false;
 } 
-function openFavouriteView(event) { if (isFavPanelOpen){ closeFavouritePanel(); clearSideMenuActive(); return;
+function openFavouriteView(event) { if (isFavPanelOpen){ closeFavouritePanel(); return;
   }
   clearSideMenuActive();
 event.currentTarget?.classList.add("active");
@@ -96,28 +97,6 @@ if (isrestoreScroll) {
     window.scrollTo(0, lastListScrollY);
 isrestoreScroll = false;}
 }
-function showDetailView() {
-  currentView = "detail";
-  listEl.style.display = "none";
-  detailEl.style.display = "block";
-  updateTopLeftButton();
- sideMenu.classList.remove("open");
-closeFavouritePanel();
-window.scrollTo(0, 0) ;
-}
-detailEl.addEventListener("click", e => {
-  const x = e.clientX; const y = e.clientY;
-  const w = window.innerWidth; const h = window.innerHeight;   
-if (y < h * 0.15 || y > h * 0.9 ) return;
-if (x < w * 0.26)
-{const newIndex = currentIndex - 1;
-showSongDetail(baseSongs[newIndex], newIndex); }
-  else if (x > w * 0.74) 
-{const newIndex = currentIndex + 1;
-showSongDetail(baseSongs[newIndex], newIndex); }
-});
-detailEl.addEventListener("dblclick", e => { openProjection(baseSongs[currentIndex]);
-});
 function renderSongLine(song, index, favSet) {
   const isFav = favSet?.has(index);
  const star = isFav
@@ -234,7 +213,7 @@ function normalize(str) {  return (str || "")
 searchInput.addEventListener("input", () => { const q = normalize(searchInput.value);
 
   if (q === "") {
-    clearSearch();
+searchOverlay.classList.remove("open");
        return; }
   const matches = baseSongs
     .map((song, index) => ({ song, index }))
@@ -251,7 +230,7 @@ function renderSearchResults(results) {
 const favSet = new Set(readFav()[currentDatasetKey] || []);
   results.forEach(({ song, index }) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
-    li.onclick = () => { clearSearch();  
+    li.onclick = () => { closeSearch();  
       showSongDetail(song, index);
     };
     fragment.appendChild(li);  });
@@ -339,8 +318,26 @@ const lyricsBlock = lyricsParts.join("");
     <p class="song-meta"><strong>Time signature:</strong> ${song["Time signature"] || "⚪"}</p>
     <div>${lyricsBlock}</div>
   `;
-showDetailView();
+  currentView = "detail";
+  detailEl.style.display = "block";
+  updateTopLeftButton();
+ sideMenu.classList.remove("open");
+closeFavouritePanel();
+detailEl.scrollTo(0, 0) ;
 }
+detailEl.addEventListener("click", e => {
+  const x = e.clientX; const y = e.clientY;
+  const w = window.innerWidth; const h = window.innerHeight;   
+if (y < h * 0.15 || y > h * 0.9 ) return;
+if (x < w * 0.24)
+{const newIndex = currentIndex - 1;
+showSongDetail(baseSongs[newIndex], newIndex); }
+  else if (x > w * 0.76) 
+{const newIndex = currentIndex + 1;
+showSongDetail(baseSongs[newIndex], newIndex); }
+});
+detailEl.addEventListener("dblclick", e => { openProjection(baseSongs[currentIndex]);
+}); 
 /* ========= PROJECTION ========= */
 const PROJECTION_ORDER = [
   ["V1", "CH-"],  ["CH", "V1-"],  ["V2", "CH-"],
@@ -348,7 +345,6 @@ const PROJECTION_ORDER = [
 ["V4", "CH-"], ["CH", "V4-"],  ["V5", "CH-"], ["CH", "V5-"], ["V6", "CH-"],  ["CH", "V6-"], ["V7",  "CH-"], ["CH",  "V7-"], ["V8",  "CH-"], ["CH",  "V8-"], ["V9",  "CH-"], ["CH",  "V9-"],["V10", "CH-"], ["CH",  "V10-"], ["V11", "CH-"], ["CH",  "V11-"] ];
 function openProjection(song) { projection.style.display = "block"; 
 history.pushState(null, "");
-
 let useA = null;
 paragraph.length = 0;
 cSlide = 0;
