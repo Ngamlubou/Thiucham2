@@ -5,6 +5,7 @@
   <title>Thiucham</title>
 <meta name="theme-color" content="#ffffff">
 <link rel="manifest" href="./manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 <style>
     html { touch-action: manipulation; 
 user-select: none; 
@@ -132,6 +133,10 @@ overscroll-behavior: contain;
 }
 #favPanel.open { transform: translateX(0);
 } 
+#songDetail { background: #ffffff;
+overflow-y: auto;
+overscroll-behavior: contain;
+} 
 .bottom-bar {  position: fixed;
   bottom: 0; left: 0; right: 0;
   width: 100%;
@@ -155,6 +160,7 @@ box-sizing: border-box;
   display: none;
   z-index: 1100;
 overflow-y: auto;
+overscroll-behavior: contain;
 }
 #projectionView .lyrics { min-height: 100dvh;
  display: flex;
