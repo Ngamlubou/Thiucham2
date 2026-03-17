@@ -46,8 +46,7 @@ opacity: 0.9;
 }
 .lyrics {white-space: pre-line;
   margin-top: 1.3rem;
-margin-bottom: 1.3rem;
-font-size: 2.4rem; 
+margin-bottom: 1.4rem;
 font-family: Open Sans;
 line-height: 1.3; 
 }
@@ -133,8 +132,12 @@ overscroll-behavior: contain;
 }
 #favPanel.open { transform: translateX(0);
 } 
-#songDetail { background: #ffffff;
+#songDetail { position: fixed;
+inset: 0;
+display: none;
+ background: #ffffff;
 overflow-y: auto;
+padding: 3.5rem 0.75rem 12rem 0.75rem;
 overscroll-behavior: contain;
 } 
 .bottom-bar {  position: fixed;
