@@ -389,7 +389,8 @@ function prevSlide() {
 /* ========= BOOT ========= */
 switchDataset("hiuna");
 
-window.addEventListener("popstate", (e) => {
-  if (e.state?.view === "projection") 
+window.addEventListener("popstate", () => {
+  if (projection.style.display === "block") {
     closeProjection();
+  }
 });
