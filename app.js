@@ -85,6 +85,7 @@ function toggleSearch() { isSearchInputOpen?  closeSearch():
   }
 function backToListView() { 
   if (!isListDirty) { detailEl.style.display = "none";
+currentView = "list";
     return; }
   if (lastView === "list") { renderSongList(baseSongs);  } 
 else { renderCategoryView(baseSongs); updateTopLeftButton(); }
@@ -385,5 +386,5 @@ switchDataset("hiuna");
 window.addEventListener("popstate", () => {
   if (projection.style.display === "block") {
     closeProjection();
-  } else if (detailEl.style.display === "block";) { backToListView();} 
+  } else if (detailEl.style.display === "block") { backToListView();} 
 });
