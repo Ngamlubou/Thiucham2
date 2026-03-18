@@ -83,19 +83,11 @@ function closeSearch() { clearSearch();
 function toggleSearch() { isSearchInputOpen?  closeSearch():
  openSearch();
   }
-function backToListView() { isrestoreScroll = true;
-  if (!isListDirty) { showListView();
+function backToListView() { 
+  if (!isListDirty) { detailEl.style.display = "none";
     return; }
   if (lastView === "list") { renderSongList(baseSongs);  } 
 else { renderCategoryView(baseSongs); updateTopLeftButton(); }
-}
-function showListView() { currentView = "list"; lastView = "list";
-  detailEl.style.display = "none";
-  listEl.style.display = "block";
-  updateTopLeftButton();
-if (isrestoreScroll) {
-    window.scrollTo(0, lastListScrollY);
-isrestoreScroll = false;}
 }
 function renderSongLine(song, index, favSet) {
   const isFav = favSet?.has(index);
@@ -292,11 +284,16 @@ songArray.forEach((song, index) => { const li = document.createElement("li");
   listEl.appendChild(fragment);
  showListView();
 }
+function showListView() { currentView = "list"; lastView = "list";
+  listEl.style.display = "block";
+  updateTopLeftButton();
+} 
 /* ========= DETAIL ========= */
 const DETAIL_ORDER = [
   ["V1", "CH-"], ["CH", "V1-"], ["V2", "V2-"],["V3", "V3-"],  ["V4", "V4-"], ["V5", "V5-"], ["V6", "V6-"], ["V7", "V7-"],  ["V8", "V8-"], ["V9", "V9-"], ["V10", "V10-"], ["V11", "V11-"] ];
 function showSongDetail(song, index) {  
   if (!song) return;
+history.pushState(null, "");
 currentIndex = index;
   const translationBlock = song.Translation
     ? `<div class="translation">${song.Translation}</div>`
@@ -388,5 +385,5 @@ switchDataset("hiuna");
 window.addEventListener("popstate", () => {
   if (projection.style.display === "block") {
     closeProjection();
-  }
+  } else if (detailEl.style.display === "block";) { backToListView();} 
 });
