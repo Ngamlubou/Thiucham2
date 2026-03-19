@@ -77,7 +77,7 @@ function closeSearch() { clearSearch();
 function toggleSearch() { isSearchInputOpen?  closeSearch():
  openSearch();
   }
-function closeDetial() {
+function closeDetail() {
 detailEl.style.display = "none";
 topLeftBtn.textContent = "☰"; 
 currentView = lastView; 
@@ -187,8 +187,8 @@ function activateDataset(key, view = "list") {
 }
 function switchDataset(key, event) { 
 if (key === currentDatasetKey && currentView === "detail") {
-    closeDetial(); return; }
-setActiveItem(event.currentTarget);
+    closeDetail(); return; }
+setActiveItem(event?.currentTarget);
  activateDataset(key, "list");
 }
 function openCategoryView(datasetKey, event) {  setActiveItem(event.currentTarget);
@@ -380,5 +380,5 @@ window.addEventListener("popstate", () => {
   if (currentView === "project") {
     closeProjection();
   } else if (currentView === "detail") {
-    closeDetial(); }  
+    closeDetail(); }  
 });
