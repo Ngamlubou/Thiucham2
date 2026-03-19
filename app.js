@@ -3,13 +3,12 @@ let baseSongs = [];
 let currentDatasetKey = "hiuna";
 let currentView = "list";
 let lastView = "list";
-let lastListScrollY = 0;
 let currentIndex = -1;
 let favCache = null;
+let activeItem = null;
 let isfavOutdated = true;
 let isFavPanelOpen = false;
 let isSearchInputOpen = false;
-let isrestoreScroll = false;
 let isListDirty = false;
 const paragraph = [];
 let cSlide = 0;
@@ -32,35 +31,38 @@ const favPanel = document.getElementById("favPanel");
 const favList  = document.getElementById("favList");
 const projection  = document.getElementById("projectionView");
 /* ========= VIEW HANDLERS ========= */
+function setActiveItem(el) {
+  if (activeItem) activeItem.classList.remove("active");
+if (!el) { activeItem = null;
+    return;  }
+  el.classList.add("active");
+  activeItem = el;
+}
 function updateFavStar(index) {
   const star = document.getElementById("favStar");  if (!star) return;
   const favs = readFav()[currentDatasetKey] || [];
   star.textContent = favs.includes(index) ? "⭐" : "☆";
 }
 function closeFavouritePanel() { favPanel.classList.remove("open");
-clearSideMenuActive();
 isFavPanelOpen = false;
 } 
-function openFavouriteView(event) { if (isFavPanelOpen){ closeFavouritePanel(); return; }
-  clearSideMenuActive();
-event.currentTarget?.classList.add("active");
+function favouriteBtn(event) { if (isFavPanelOpen) { closeFavouritePanel();
+setActiveItem(null); return; }
+  setActiveItem(event.currentTarget);
  openFavouritePanel();
 }
 function handleTopLeftClick() { clearSearch(); 
   if (currentView === "detail") {
-    backToListView(); } 
+    closeDetial(); } 
 else { sideMenu.classList.toggle("open"); }
  }
-function clearSideMenuActive() {
-document.querySelectorAll(".side-item").forEach(i =>
-    i.classList.remove("active") );
-}
 function clearSearch() {
   searchInput.value = "";
   searchOverlay.classList.remove("open");
   searchListEl.innerHTML = "";
 }
 function openSearch() { closeFavouritePanel();
+setActiveItem(null);
 searchOverlay.classList.add("open");
 searchInput.classList.add("open");
   topSearch.textContent = "⌫";
@@ -183,14 +185,15 @@ function activateDataset(key, view = "list") {
   } else {
     renderSongList(baseSongs);}
 }
-function switchDataset(key) { 
+function switchDataset(key, event) { 
 if (key === currentDatasetKey && currentView === "detail") {
     closeDetial(); return; }
-clearSideMenuActive();   activateDataset(key, "list");
+setActiveItem(event.currentTarget);
+ activateDataset(key, "list");
 }
-function openCategoryView(datasetKey, event) {  clearSideMenuActive(); 
+function openCategoryView(datasetKey, event) {  setActiveItem(event.currentTarget);
 closeFavouritePanel();
-event.currentTarget?.classList.add("active"); window.scrollTo(0, 0) ;
+ window.scrollTo(0, 0);
   activateDataset(datasetKey, "category");
 }
 /* ========= SEARCH ========= */
@@ -251,9 +254,7 @@ const containerFragment = document.createDocumentFragment();
 grouped[category].forEach(({ song, index }) => {
       const li = document.createElement("li");
       li.innerHTML = renderSongLine(song, index, favSet);
-   li.onclick = () => { lastListScrollY = window.scrollY;
-        showSongDetail(song, index);
-      };
+   li.onclick = () =>   showSongDetail(song, index);
 containerFragment.appendChild(li);
     });
 container.appendChild(containerFragment);
@@ -270,16 +271,12 @@ function renderSongList(songArray) { const fragment = document.createDocumentFra
 const favSet = new Set(readFav()[currentDatasetKey] || []);
 songArray.forEach((song, index) => { const li = document.createElement("li");
     li.innerHTML = renderSongLine(song, index, favSet);
-    li.onclick = () => { lastListScrollY = window.scrollY;
-      showSongDetail(song, index);
-    };
+    li.onclick = () =>     showSongDetail(song, index);
     fragment.appendChild(li);
   });
  listEl.innerHTML = "";
   listEl.appendChild(fragment);
- showListView();
-}
-function showListView() { currentView = "list"; lastView = "list";
+ currentView = "list"; lastView = "list";
   listEl.style.display = "block";
 } 
 /* ========= DETAIL ========= */
