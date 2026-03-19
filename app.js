@@ -23,7 +23,7 @@ const listEl = document.getElementById("songList");
 const detailEl = document.getElementById("songDetail");
 const viewNameEl = document.getElementById("viewName");
 const topLeftBtn = document.getElementById("topLeft");
-const topSearch = document.getElementById("top-search");
+const topSearch = document.getElementById("topRight");
 const searchInput = document.getElementById("searchInput");
 const searchOverlay = document.getElementById("searchOverlay");
 const searchListEl = document.getElementById("searchResults");
@@ -41,19 +41,11 @@ function closeFavouritePanel() { favPanel.classList.remove("open");
 clearSideMenuActive();
 isFavPanelOpen = false;
 } 
-function openFavouriteView(event) { if (isFavPanelOpen){ closeFavouritePanel(); return;
-  }
+function openFavouriteView(event) { if (isFavPanelOpen){ closeFavouritePanel(); return; }
   clearSideMenuActive();
 event.currentTarget?.classList.add("active");
  openFavouritePanel();
 }
-function updateTopLeftButton() {
-  if (currentView === "detail") {
-    topLeftBtn.textContent = "〈 ";
-updateFavStar(currentIndex);
-  } else {
-    topLeftBtn.textContent = "☰";
-  }}
 function handleTopLeftClick() { clearSearch(); 
   if (currentView === "detail") {
     backToListView(); } 
@@ -83,12 +75,14 @@ function closeSearch() { clearSearch();
 function toggleSearch() { isSearchInputOpen?  closeSearch():
  openSearch();
   }
-function backToListView() { 
-  if (!isListDirty) { detailEl.style.display = "none";
-currentView = "list";
-    return; }
-  if (lastView === "list") { renderSongList(baseSongs);  } 
-else { renderCategoryView(baseSongs); updateTopLeftButton(); }
+function backToListView() {
+   if (!isListDirty) {
+detailEl.style.display = "none";
+topLeftBtn.textContent = "☰"; 
+currentView = lastView; return; }
+  if (lastView === "category") {
+    renderCategoryView(baseSongs);  } 
+else {  renderSongList(baseSongs); }
 }
 function renderSongLine(song, index, favSet) {
   const isFav = favSet?.has(index);
@@ -287,7 +281,6 @@ songArray.forEach((song, index) => { const li = document.createElement("li");
 }
 function showListView() { currentView = "list"; lastView = "list";
   listEl.style.display = "block";
-  updateTopLeftButton();
 } 
 /* ========= DETAIL ========= */
 const DETAIL_ORDER = [
@@ -318,7 +311,8 @@ const lyricsBlock = lyricsParts.join("");
   `;
   currentView = "detail";
   detailEl.style.display = "block";
-  updateTopLeftButton();
+  topLeftBtn.textContent = "〈 ";
+updateFavStar(currentIndex); 
  sideMenu.classList.remove("open");
 closeFavouritePanel();
 detailEl.scrollTo(0, 0) ;
@@ -342,6 +336,7 @@ const PROJECTION_ORDER = [
  ["CH", "V2-"], ["V3", "CH-"], ["CH", "V3-"],
 ["V4", "CH-"], ["CH", "V4-"],  ["V5", "CH-"], ["CH", "V5-"], ["V6", "CH-"],  ["CH", "V6-"], ["V7",  "CH-"], ["CH",  "V7-"], ["V8",  "CH-"], ["CH",  "V8-"], ["V9",  "CH-"], ["CH",  "V9-"],["V10", "CH-"], ["CH",  "V10-"], ["V11", "CH-"], ["CH",  "V11-"] ];
 function openProjection(song) { projection.style.display = "block"; 
+currentView = "project";
 history.pushState(null, "");
 let useA = null;
 paragraph.length = 0;
@@ -361,6 +356,7 @@ paragraph[paragraph.length - 1] +=
 projection.innerHTML = paragraph[cSlide];
 }
 function closeProjection() { projection.style.display = "none";
+currentView = "detail";
 }
 projection.addEventListener("click", e => {
   if (e.clientX < window.innerWidth * 0.26) prevSlide();
@@ -384,7 +380,8 @@ function prevSlide() {
 switchDataset("hiuna");
 
 window.addEventListener("popstate", () => {
-  if (projection.style.display === "block") {
+  if (currentView === "project") {
     closeProjection();
-  } else if (detailEl.style.display === "block") { backToListView();} 
+  } else if (currentView === "detail") {
+    backToListView(); }  
 });
