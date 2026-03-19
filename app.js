@@ -53,7 +53,7 @@ setActiveItem(null); return; }
 }
 function handleTopLeftClick() { clearSearch(); 
   if (currentView === "detail") {
-    closeDetial(); } 
+    closeDetail(); } 
 else { sideMenu.classList.toggle("open"); }
  }
 function clearSearch() {
