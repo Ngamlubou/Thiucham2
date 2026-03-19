@@ -44,10 +44,11 @@ function updateFavStar(index) {
   star.textContent = favs.includes(index) ? "⭐" : "☆";
 }
 function closeFavouritePanel() { favPanel.classList.remove("open");
+setActiveItem(null);
 isFavPanelOpen = false;
 } 
 function favouriteBtn(event) { if (isFavPanelOpen) { closeFavouritePanel();
-setActiveItem(null); return; }
+return; }
   setActiveItem(event.currentTarget);
  openFavouritePanel();
 }
