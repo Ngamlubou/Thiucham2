@@ -75,14 +75,15 @@ function closeSearch() { clearSearch();
 function toggleSearch() { isSearchInputOpen?  closeSearch():
  openSearch();
   }
-function backToListView() {
-   if (!isListDirty) {
+function closeDetial() {
 detailEl.style.display = "none";
 topLeftBtn.textContent = "☰"; 
-currentView = lastView; return; }
-  if (lastView === "category") {
+currentView = lastView; 
+if (isListDirty) {
+      if (lastView === "category") {
     renderCategoryView(baseSongs);  } 
 else {  renderSongList(baseSongs); }
+} isListDirty = false;
 }
 function renderSongLine(song, index, favSet) {
   const isFav = favSet?.has(index);
@@ -184,7 +185,7 @@ function activateDataset(key, view = "list") {
 }
 function switchDataset(key) { 
 if (key === currentDatasetKey && currentView === "detail") {
-    backToListView(); return; }
+    closeDetial(); return; }
 clearSideMenuActive();   activateDataset(key, "list");
 }
 function openCategoryView(datasetKey, event) {  clearSideMenuActive(); 
@@ -236,7 +237,6 @@ function groupByCategory(songs) {  const map = {};
 function renderCategoryView(songs) {
   currentView = "category"; lastView = "category";
   listEl.innerHTML = "";
-  detailEl.style.display = "none";
   listEl.style.display = "block";
 const grouped = groupByCategory(songs);
   const mainFragment = document.createDocumentFragment();
@@ -383,5 +383,5 @@ window.addEventListener("popstate", () => {
   if (currentView === "project") {
     closeProjection();
   } else if (currentView === "detail") {
-    backToListView(); }  
+    closeDetial(); }  
 });
