@@ -154,9 +154,12 @@ box-sizing: border-box;
   text-align: center;
   height: 4rem;
   line-height: 4rem;
-  font-size: 1.3rem; border-left: 0.8px solid #000;}
+  font-size: 1.3rem; 
+cursor: pointer;
+border-left: 0.8px solid #000; }
 .bottom-item:first-child {  border-left: none;} 
-.bottom-item:hover {  background: #ffe7ba;
+.bottom-item.active { background: #ffe7ba;
+  font-weight: 600;
 }
 #projectionView { position: fixed;
   inset: 0;
@@ -194,7 +197,7 @@ overscroll-behavior: contain;
 <div class="side-head"> Category </div>
 <div class="side-item" onclick="openCategoryView('luisan', event)"> ▸ Luisan</div>
 <div class="side-item" onclick="openCategoryView('khristen', event)"> ▸ Khristen Madui Lui</div>
-<div class="side-item" onclick="openFavouriteView(event)"> ▸ Star ⭐</div>
+<div class="side-item" onclick="favouriteBtn(event)"> ▸ Star ⭐</div>
 <a class="side-item" href="https://sites.google.com/view/thiucham/content-info"  target="_blank"
   rel="noopener" > ▸ App Info</a></div>
 <div id="favPanel">
@@ -210,8 +213,8 @@ overscroll-behavior: contain;
 <script src="./Khristen_Madui_Lui.js"></script>
 <script src="./app.js"></script>
 <div class="bottom-bar">
-<div class="bottom-item" onclick="switchDataset('hiuna')">Hiuna Khomlui</div>
-<div class="bottom-item" onclick="switchDataset('khristen')">Khristen Madui Lui</div>
-<div class="bottom-item" onclick="switchDataset('luisan')">Luisan</div></div>
+<div class="bottom-item" onclick="switchDataset('hiuna', event)">Hiuna Khomlui</div>
+<div class="bottom-item" onclick="switchDataset('khristen', event)">Khristen Madui Lui</div>
+<div class="bottom-item" onclick="switchDataset('luisan', event)">Luisan</div></div>
 </body>
 </html>
