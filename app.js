@@ -45,7 +45,7 @@ function updateFavStar(index) {
 }
 function closeFavouritePanel() { favPanel.classList.remove("open");
 isFavPanelOpen = false;
-if (currentView !== "detail") setActiveItem(null);
+if (currentView === "list") setActiveItem(null);
 } 
 function favouriteBtn(event) { if (isFavPanelOpen) { closeFavouritePanel();
 return; }
