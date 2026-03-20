@@ -45,9 +45,9 @@ function updateFavStar(index) {
 }
 function closeFavouritePanel() { favPanel.classList.remove("open");
 isFavPanelOpen = false;
+if (currentView !== "detail") setActiveItem(null);
 } 
 function favouriteBtn(event) { if (isFavPanelOpen) { closeFavouritePanel();
-setActiveItem(null);
 return; }
   setActiveItem(event.currentTarget);
  openFavouritePanel();
@@ -62,7 +62,7 @@ function clearSearch() {
   searchOverlay.classList.remove("open");
   searchListEl.innerHTML = "";
 }
-function openSearch() { closeFavouritePanel();
+function openSearch() { 
 searchOverlay.classList.add("open");
 searchInput.classList.add("open");
   topSearch.textContent = "⌫";
