@@ -44,10 +44,10 @@ function updateFavStar(index) {
   star.textContent = favs.includes(index) ? "⭐" : "☆";
 }
 function closeFavouritePanel() { favPanel.classList.remove("open");
-setActiveItem(null);
 isFavPanelOpen = false;
 } 
 function favouriteBtn(event) { if (isFavPanelOpen) { closeFavouritePanel();
+setActiveItem(null);
 return; }
   setActiveItem(event.currentTarget);
  openFavouritePanel();
@@ -63,7 +63,6 @@ function clearSearch() {
   searchListEl.innerHTML = "";
 }
 function openSearch() { closeFavouritePanel();
-setActiveItem(null);
 searchOverlay.classList.add("open");
 searchInput.classList.add("open");
   topSearch.textContent = "⌫";
@@ -86,7 +85,7 @@ if (isListDirty) {
       if (lastView === "category") {
     renderCategoryView(baseSongs);  } 
 else {  renderSongList(baseSongs); }
-} isListDirty = false;
+isListDirty = false; } 
 }
 function renderSongLine(song, index, favSet) {
   const isFav = favSet?.has(index);
@@ -190,6 +189,7 @@ function switchDataset(key, event) {
 if (key === currentDatasetKey && currentView === "detail") {
     closeDetail(); return; }
 setActiveItem(event?.currentTarget);
+detailEl.style.display = "none";
  activateDataset(key, "list");
 }
 function openCategoryView(datasetKey, event) {  setActiveItem(event.currentTarget);
