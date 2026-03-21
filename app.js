@@ -389,5 +389,5 @@ closeSearch(); }
   else if (currentView === "detail") {  closeDetail(); } 
  else if (currentView === "category") { activateDataset(currentDatasetKey, "list"); } 
 else if (currentDatasetKey !== "hiuna") { activateDataset("hiuna", "list"); } 
-else { history.go(-n); } 
+else { history.go(-10); } 
 } );
