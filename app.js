@@ -378,6 +378,8 @@ function prevSlide() {
 }
 /* ========= BOOT ========= */
 activateDataset(currentDatasetKey, "list");
+function exitAppFlow() {
+  history.go(-10); }
 
 window.addEventListener("popstate", () => {
 if (isSearchInputOpen) { 
@@ -389,5 +391,5 @@ closeSearch(); }
   else if (currentView === "detail") {  closeDetail(); } 
  else if (currentView === "category") { activateDataset(currentDatasetKey, "list"); } 
 else if (currentDatasetKey !== "hiuna") { activateDataset("hiuna", "list"); } 
-else { history.go(-10); } 
+else { exitAppFlow(); } 
 } );
