@@ -377,15 +377,15 @@ function prevSlide() {
   projection.innerHTML = paragraph[--cSlide];
 }
 /* ========= BOOT ========= */
-switchDataset("hiuna");
+activateDataset(currentDatasetKey, "list");
 
 window.addEventListener("popstate", () => {
-if (isFavPanelOpen) { 
+if (isSearchInputOpen) { 
 closeSearch(); }
  else if (isFavPanelOpen) {
     closeFavouritePanel();
     setActiveItem(null); }
  else if (currentView === "project") {  closeProjection(); }  
   else if (currentView === "detail") {  closeDetail(); } 
- else if (currentView === "category") { switchDataset("hiuna"); } 
+ else if (currentView === "category") { activateDataset(currentDatasetKey, "list"); } 
 } );
