@@ -66,6 +66,7 @@ searchOverlay.classList.add("open");
 searchInput.classList.add("open");
   topSearch.textContent = "⌫";
 isSearchInputOpen = true;
+history.pushState(null, "");
   searchInput.focus();
 }
 function closeSearch() { clearSearch(); 
@@ -240,6 +241,7 @@ function groupByCategory(songs) {  const map = {};
 }
 function renderCategoryView(songs) {
   currentView = "category"; lastView = "category";
+history.pushState(null, "");
   listEl.innerHTML = "";
   listEl.style.display = "block";
 const grouped = groupByCategory(songs);
@@ -378,12 +380,12 @@ function prevSlide() {
 switchDataset("hiuna");
 
 window.addEventListener("popstate", () => {
-  if (isFavPanelOpen) {
+if (isFavPanelOpen) { 
+closeSearch(); }
+ else if (isFavPanelOpen) {
     closeFavouritePanel();
-    setActiveItem(null);
-    return;  }
-if (currentView === "project") {
-    closeProjection();
-  } else if (currentView === "detail") {
-    closeDetail(); }  
-});
+    setActiveItem(null); }
+ else if (currentView === "project") {  closeProjection(); }  
+  else if (currentView === "detail") {  closeDetail(); } 
+ else if (currentView === "category") { switchDataset("hiuna"); } 
+} );
