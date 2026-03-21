@@ -388,4 +388,6 @@ closeSearch(); }
  else if (currentView === "project") {  closeProjection(); }  
   else if (currentView === "detail") {  closeDetail(); } 
  else if (currentView === "category") { activateDataset(currentDatasetKey, "list"); } 
+else  { activateDataset("hiuna", "list"); 
+ } 
 } );
