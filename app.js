@@ -164,6 +164,7 @@ const li = document.createElement("li");
   favList.appendChild(fragment);
   favPanel.classList.add("open");
 isFavPanelOpen = true;
+history.pushState(null, "");
 }
 /* ======== DATASET ======== */
 function activateDataset(key, view = "list") {
@@ -377,7 +378,11 @@ function prevSlide() {
 switchDataset("hiuna");
 
 window.addEventListener("popstate", () => {
-  if (currentView === "project") {
+  if (isFavPanelOpen) {
+    closeFavouritePanel();
+    setActiveItem(null);
+    return;  }
+if (currentView === "project") {
     closeProjection();
   } else if (currentView === "detail") {
     closeDetail(); }  
