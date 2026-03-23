@@ -378,6 +378,8 @@ function prevSlide() {
 /* ========= BOOT ========= */
 activateDataset(currentDatasetKey);
 
+exist(){ history.go(-10); } 
+
 window.addEventListener("popstate", () => {
 if (isSearchInputOpen) { 
 closeSearch(); }
@@ -387,5 +389,5 @@ closeSearch(); }
  else if (currentView === "project") {  closeProjection(); }  
   else if (currentView === "detail") {  closeDetail(); } 
  else if (currentView === "category") { activateDataset(currentDatasetKey, "list"); } 
-else { history.go(-10);  } 
-} );
+else { exist(); } 
+} ); 
