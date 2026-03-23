@@ -174,7 +174,6 @@ function activateDataset(key, view = "list") {
   currentDatasetKey = key;
   baseSongs = DATASETS[key];
   currentView = view;
-
   viewNameEl.textContent =
     key === "hiuna" ? "Hiuna Khomlui" :
     key === "khristen" ? "Khristen Madui Lui" :
@@ -193,7 +192,7 @@ setActiveItem(event?.currentTarget);
 detailEl.style.display = "none";
  activateDataset(key, "list");
 }
-function openCategoryView(datasetKey, event) {  setActiveItem(event.currentTarget);
+function openCategoryView(Key, event) {  setActiveItem(event.currentTarget);
 closeFavouritePanel();
  window.scrollTo(0, 0);
   activateDataset(datasetKey, "category");
@@ -377,9 +376,7 @@ function prevSlide() {
   projection.innerHTML = paragraph[--cSlide];
 }
 /* ========= BOOT ========= */
-activateDataset(currentDatasetKey, "list");
-function exitAppFlow() {
-  history.go(-10); }
+activateDataset(currentDatasetKey);
 
 window.addEventListener("popstate", () => {
 if (isSearchInputOpen) { 
@@ -390,6 +387,5 @@ closeSearch(); }
  else if (currentView === "project") {  closeProjection(); }  
   else if (currentView === "detail") {  closeDetail(); } 
  else if (currentView === "category") { activateDataset(currentDatasetKey, "list"); } 
-else if (currentDatasetKey !== "hiuna") { activateDataset("hiuna", "list"); } 
-else { exitAppFlow(); } 
+else { history.go(-10);  } 
 } );
