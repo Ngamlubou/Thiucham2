@@ -195,7 +195,7 @@ detailEl.style.display = "none";
 function openCategoryView(key, event) {  setActiveItem(event.currentTarget);
 closeFavouritePanel();
  window.scrollTo(0, 0);
-  activateDataset(datasetKey, "category");
+  activateDataset(key, "category");
 }
 /* ========= SEARCH ========= */
 function normalize(str) {  return (str || "")
@@ -386,6 +386,5 @@ closeSearch(); }
     setActiveItem(null); }
  else if (currentView === "project") {  closeProjection(); }  
   else if (currentView === "detail") {  closeDetail(); } 
- else if (currentView === "category") { activateDataset(currentDatasetKey, "list"); } 
-else { history.go(-3); } 
+ else if (currentView === "category") { activateDataset(currentDatasetKey, "list"); }  
 } );
