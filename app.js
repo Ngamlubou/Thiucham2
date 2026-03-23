@@ -192,7 +192,7 @@ setActiveItem(event?.currentTarget);
 detailEl.style.display = "none";
  activateDataset(key, "list");
 }
-function openCategoryView(Key, event) {  setActiveItem(event.currentTarget);
+function openCategoryView(key, event) {  setActiveItem(event.currentTarget);
 closeFavouritePanel();
  window.scrollTo(0, 0);
   activateDataset(datasetKey, "category");
@@ -387,5 +387,5 @@ closeSearch(); }
  else if (currentView === "project") {  closeProjection(); }  
   else if (currentView === "detail") {  closeDetail(); } 
  else if (currentView === "category") { activateDataset(currentDatasetKey, "list"); } 
-else { history.go(-3);  } 
+else { history.go(-3); } 
 } );
