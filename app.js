@@ -370,6 +370,7 @@ else if (e.key === "Escape")
 function nextSlide() { 
 if (cSlide === paragraph.length - 1) { projection.scrollBy(0, 500); return; } 
 projection.innerHTML = paragraph[++cSlide];
+projection.scrollTo(0, 34);
 }
 function prevSlide() {
   if (cSlide === 0) { closeProjection(); return; }
