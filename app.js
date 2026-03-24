@@ -361,7 +361,8 @@ projection.addEventListener("click", e => {
   if (e.clientX < window.innerWidth * 0.26) prevSlide();
   else if (e.clientX > window.innerWidth * 0.74) nextSlide();
 });
-document.addEventListener("keydown", e => {
+document.addEventListener("keydown", e => { 
+if (e.target === searchInput) return;
 if (e.key === "Enter" && currentView === "detail") { openProjection(baseSongs[currentIndex]);
 projection.requestFullscreen(); return; }
  if (currentView !== "project") return;
