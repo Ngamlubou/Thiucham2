@@ -362,12 +362,14 @@ projection.addEventListener("click", e => {
   else if (e.clientX > window.innerWidth * 0.74) nextSlide();
 });
 document.addEventListener("keydown", e => {
-  if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === " ") nextSlide();
+if (e.key === "Enter" && currentView === "detail") { openProjection(baseSongs[currentIndex]);
+projection.requestFullscreen(); return; }
+ if (currentView !== "project") return;
+ if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === " ") nextSlide();
  else if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevSlide();
-else if (e.key === "Escape")
-    closeProjection();
-else if (e.key === "F5" || e.key === "Enter") { openProjection(baseSongs[currentIndex]);
-projection.requestFullscreen(); }
+else if (e.key === "Escape") {
+document.exitFullscreen(); 
+    closeProjection(); }
 });
 function nextSlide() { 
 if (cSlide === paragraph.length - 1) { projection.scrollBy(0, 500); return; } 
