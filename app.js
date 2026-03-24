@@ -366,6 +366,8 @@ document.addEventListener("keydown", e => {
  else if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevSlide();
 else if (e.key === "Escape")
     closeProjection();
+else if (e.key === "F5" || e.key === "Enter") { openProjection(baseSongs[currentIndex]);
+projection.requestFullscreen(); }
 });
 function nextSlide() { 
 if (cSlide === paragraph.length - 1) { projection.scrollBy(0, 500); return; } 
