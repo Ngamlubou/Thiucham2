@@ -354,7 +354,8 @@ paragraph[paragraph.length - 1] +=
   `<div class="pCloseSlide" onclick="closeProjection()">❌</div>`;
 projection.innerHTML = paragraph[cSlide];
 }
-function closeProjection() { projection.style.display = "none";
+function closeProjection() { document.exitFullscreen(); 
+projection.style.display = "none";
 currentView = "detail";
 }
 projection.addEventListener("click", e => {
@@ -363,14 +364,13 @@ projection.addEventListener("click", e => {
 });
 document.addEventListener("keydown", e => { 
 if (e.target === searchInput) return;
-if (e.key === "Enter" && currentView === "detail" || currentView === "project") { openProjection(baseSongs[currentIndex]);
+if (e.key === "Enter" && (currentView === "detail" || currentView === "project")) { openProjection(baseSongs[currentIndex]);
 projection.requestFullscreen(); return; }
  if (currentView !== "project") return;
  if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === " ") nextSlide();
  else if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevSlide();
-else if (e.key === "Escape") {
-document.exitFullscreen(); 
-    closeProjection(); }
+else if (e.key === "Escape") 
+ closeProjection(); 
 });
 function nextSlide() { 
 if (cSlide === paragraph.length - 1) { projection.scrollBy(0, 500); return; } 
