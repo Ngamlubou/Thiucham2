@@ -363,7 +363,7 @@ projection.addEventListener("click", e => {
 });
 document.addEventListener("keydown", e => { 
 if (e.target === searchInput) return;
-if (e.key === "Enter" && currentView === "detail") { openProjection(baseSongs[currentIndex]);
+if (e.key === "Enter" && currentView === "detail" || currentView === "project") { openProjection(baseSongs[currentIndex]);
 projection.requestFullscreen(); return; }
  if (currentView !== "project") return;
  if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === " ") nextSlide();
