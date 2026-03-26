@@ -200,7 +200,7 @@ closeFavouritePanel();
 /* ========= SEARCH ========= */
 function normalize(str) {  return (str || "")
     .toLowerCase()
-    .replace(/[ !,.?]/g, "");
+    .replace(/[ !,.?-']/g, "");
 }
 searchInput.addEventListener("input", () => { const q = normalize(searchInput.value);
 
@@ -394,3 +394,7 @@ closeSearch(); }
   else if (currentView === "detail") {  closeDetail(); } 
  else if (currentView === "category") { activateDataset(currentDatasetKey, "list"); }  
 } );
+/* ========= PWA ========= */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => { navigator.serviceWorker.register("./sw.js"); });
+   }
